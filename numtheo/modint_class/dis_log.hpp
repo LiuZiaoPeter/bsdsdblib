@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../../basics.hpp"
+#include "../prod_funcs.hpp"
 
 namespace number_theory_n {
 	template<i32 P> std::optional<u32> dis_log(MIP<P> a, MIP<P> b) {
@@ -68,10 +69,14 @@ namespace number_theory_n {
 		MI<P> a_to_y = 1;
 		u32 ret = -1;
 		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
-			if (aBx2x.find((b * a_to_y).val) == aBx2x.end()) {
+			u32 curv = (b * a_to_y).val;
+			if (aBx2x.find(curv) == aBx2x.end()) {
 				continue;
 			}
-			for (u32 x : {aBx2x[(b * a_to_y).val].first, aBx2x[(b * a_to_y).val].second}) {
+			for (u32 x : {aBx2x[curv].first, aBx2x[curv].second}) {
+				if (x == 0) {
+					continue;
+				}
 				u32 cur = static_cast<u32>(static_cast<u64>(B) * x - y);
 				if (qpow(a, cur) == b) {
 					ret = std::min(ret, cur);
@@ -81,6 +86,44 @@ namespace number_theory_n {
 		}
 		if (ret == static_cast<u32>(-1)) {
 			return std::nullopt;
+		}
+		return ret;
+	}
+	template<i32 P> std::vector<std::optional<u32>> dis_logs(MI<P> a, std::vector<MI<P>> b) {
+		u32 B = static_cast<u32>(std::sqrt(phi(MI<P>::mod()) / b.size())) + 2;
+		u32 xlim = MI<P>::mod() / B + 3;
+		MI<P> a_to_B = qpow(a, B), a_to_Bx = a_to_B;
+		std::unordered_map<u32, std::pair<u32, u32>> aBx2x;
+		for (u32 x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
+			if (aBx2x[a_to_Bx.val].first == 0) {
+				aBx2x[a_to_Bx.val].first = x;
+			} else if (aBx2x[a_to_Bx.val].second == 0) {
+				aBx2x[a_to_Bx.val].second = x;
+			}
+		}
+		MI<P> a_to_y = 1;
+		std::vector<std::optional<u32>> ret(b.size(), std::nullopt);
+		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
+			for (u32 i = 0; i < B; ++i) {
+				u32 curv = (b[i] * a_to_y).val;
+				if (aBx2x.find(curv) == aBx2x.end()) {
+					continue;
+				}
+				for (u32 x : {aBx2x[curv].first, aBx2x[curv].second}) {
+					if (x == 0) {
+						continue;
+					}
+					u32 cur = static_cast<u32>(static_cast<u64>(B) * x - y);
+					if (qpow(a, cur) == b[i]) {
+						if (ret[i].has_value() == false) {
+							ret[i] = cur;
+						} else {
+							ret[i] = std::min(ret[i].value(), cur);
+						}
+						break;
+					}
+				}
+			}
 		}
 		return ret;
 	}

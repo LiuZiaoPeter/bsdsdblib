@@ -22,6 +22,7 @@ namespace number_theory_n {
 	template<i32 P> u32 fast_dis_ln(MIP<P>);
 	template<i32 P> u32 ord(MIP<P>);
 	template<i32 P> std::optional<u32> dis_log(MI<P>, MI<P>);
+	template<i32 P> std::vector<std::optional<u32>> dis_logs(MI<P>, std::vector<MI<P>>);
 	template<i32 P> std::optional<u32> ord(MI<P> x);
 	// quadradic residue
 	template<i32 P> i32 legendre(MIP<P>);
@@ -175,6 +176,7 @@ namespace number_theory_n {
 		using Base::set_mod;
 		// discrete log
 		friend std::optional<u32> dis_log<>(MI<P>, MI<P>);
+		friend std::vector<std::optional<u32>> dis_logs<>(MI<P>, std::vector<MI<P>>);
 		friend std::optional<u32> ord<>(MI<P>);
 	};
 }
