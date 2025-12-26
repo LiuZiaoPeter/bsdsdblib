@@ -22,7 +22,7 @@ namespace number_theory_n {
         }
         template<i32 P> void MIP<P>::O1inv_preproc() {
                 MIP<P>::O1inv_mode = true;
-                MIP<P>::cbrtP_log2 = std::bit_width(std::cbrt(MIP<P>::mod()));
+                MIP<P>::cbrtP_log2 = std::bit_width(static_cast<u32>(std::cbrt(MIP<P>::mod()) + 1));
                 MIP<P>::cbrtP = 1 << MIP<P>::cbrtP_log2;
                 MIP<P>::cbrtP2 = 1 << (MIP<P>::cbrtP_log2 << 1);
                 if (MIP<P>::inv_v.size() <= MIP<P>::cbrtP2) {
