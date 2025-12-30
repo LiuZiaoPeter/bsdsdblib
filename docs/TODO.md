@@ -1,2 +1,1 @@
 - fps
-- 在 `gch_gen.sh` 中读取 `all.h`？
