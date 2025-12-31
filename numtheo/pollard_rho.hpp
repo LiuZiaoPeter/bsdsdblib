@@ -8,7 +8,7 @@
 #include "../basics.hpp"
 
 namespace number_theory_n {
-        bool miller_rabin(u64 x) {
+	bool miller_rabin(u64 x) {
 		if (!(x & 1)) {
 			return x == 2;
 		}

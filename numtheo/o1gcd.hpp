@@ -9,7 +9,7 @@
 #include "euler_sieve.hpp"
 
 namespace number_theory_n {
-        std::vector<std::array<u32, 3>> gcd_decomp;
+	std::vector<std::array<u32, 3>> gcd_decomp;
 	std::vector<std::vector<u32>> gcd_table;
 	void O1gcd_preproc(u32 N) {
 		u32 sqrtN = static_cast<u32>(std::sqrt(N)) + 1;
