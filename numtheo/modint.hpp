@@ -11,7 +11,7 @@
 #include "pollard_rho.hpp"
 #include "prod_funcs.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	template<i32 P> class MIP;
 	template<i32 P> class MI;
 	// multiplicative inverse
@@ -28,7 +28,7 @@ namespace number_theory_n {
 	// quadradic residue
 	template<i32 P> i32 legendre(MIP<P>);
 	template<i32 P> std::optional<MIP<P>> sqrt(MIP<P>);
-	template<class Derived, i32 P> class ModIntBase { // lt 0 for dynamic, le -1073741824 for inner use
+	template<class Derived, i32 P> class ModIntBase { // lt 0 for dynamic, le -1073741824 for internal use
 		/* 
 		occupied P shown below:
 		-1073741824 : template<i32 P> MI<P> std::optional<u32> ord(MI<P>)

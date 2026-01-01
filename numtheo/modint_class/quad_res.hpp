@@ -2,7 +2,7 @@
 
 #include "../../basics.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	template<i32 P> i32 legendre(MIP<P> x) {
 		if (x == 0) {
 			return 0;

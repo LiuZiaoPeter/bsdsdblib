@@ -2,7 +2,7 @@
 
 #include "../../basics.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	template<i32 P> void MIP<P>::dis_ln_preproc(MIP<P> g) {
 		u32 sqrtP = static_cast<u32>(std::sqrt(mod())) + 2;
 		if (mpf.size() <= sqrtP) {

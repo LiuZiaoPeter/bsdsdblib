@@ -4,7 +4,7 @@
 
 #include "../../basics.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	template<i32 P> MIP<P> qpow_signed(MIP<P> x, i64 y) {
 		y %= MIP<P>::mod() - 1;
 		if (y < 0) {
@@ -53,7 +53,7 @@ namespace number_theory_n {
 	template<i32 P> MIP<P> inv(MIP<P> x) {
 		if (x.val == 0) {
 			throw std::invalid_argument(
-				"number_theory_n::template<i32 P> MIP<P> inv(void) : getting inv(0)"
+				"numtheo_n::template<i32 P> MIP<P> inv(void) : getting inv(0)"
 			);
 		}
 		if (x.val < MIP<P>::inv_v.size()) {

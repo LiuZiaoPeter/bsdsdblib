@@ -8,7 +8,7 @@
 
 #include "../basics.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
         std::pair<i64, i64> exgcd(u64 a, u64 b) {
 		if (b == 0) {
 			return std::make_pair(1, 0);
@@ -41,7 +41,7 @@ namespace number_theory_n {
 	std::optional<std::pair<u64, u64>> excrt(std::vector<u64> a, std::vector<u64> p) {
 		if (a.size() != p.size() || a.empty() || p.empty()) {
 			throw std::invalid_argument(
-				"number_theory_n::std::optional<std::pair<u64, u64>> excrt"
+				"numtheo_n::std::optional<std::pair<u64, u64>> excrt"
 				"(std::vector<u64>, std::vector<u64>) : argument illegal"
 			);
 		}

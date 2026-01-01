@@ -8,7 +8,7 @@
 #include "pollard_rho.hpp"
 #include "prod_funcs.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	bool is_prim_root(u64 x, u64 m, u64 phim, const std::vector<std::pair<u64, u32>> &phim_fact) {
 		if (std::gcd(x, m) != 1) {
 			return false;

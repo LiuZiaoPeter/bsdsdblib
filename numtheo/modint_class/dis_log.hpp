@@ -8,7 +8,7 @@
 #include "../../basics.hpp"
 #include "../prod_funcs.hpp"
 
-namespace number_theory_n {
+namespace numtheo_n {
 	template<i32 P> std::optional<u32> dis_log(MIP<P> a, MIP<P> b) {
 		u32 B = static_cast<u32>(std::sqrt(MIP<P>::mod())) + 2;
 		MIP<P> a_to_y = 1;
