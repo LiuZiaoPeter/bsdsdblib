@@ -13,26 +13,26 @@
 #include "prod_funcs.hpp"
 
 namespace numtheo_n {
-	template<i64 P, bool _64 = false> class MIP;
-	template<i32 P> class MI;
+	template<i64 P, bool _64 = false> class ModIntPr;
+	template<i32 P> class ModInt;
 	// multiplicative inverse
-	template<i128::signed_integral T, i64 P, bool _64 = false> MIP<P, _64> qpow_signed(MIP<P, _64>, T);
-	template<i64 P, bool _64 = false> MIP<P, _64> inv(MIP<P, _64>);
+	template<i128::signed_integral T, i64 P, bool _64 = false> ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64>, T);
+	template<i64 P, bool _64 = false> ModIntPr<P, _64> inv(ModIntPr<P, _64>);
 	// discrete log
-	template<i64 P, bool _64 = false> std::optional<std::conditional_t<_64, u64, u32>> dis_log(MIP<P, _64>, MIP<P, _64>);
-	template<i64 P, bool _64 = false> std::vector<std::optional<std::conditional_t<_64, u64, u32>>> dis_logs(MIP<P, _64>, std::vector<MIP<P, _64>>);
-	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> fast_dis_ln(MIP<P, _64>);
-	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> ord(MIP<P, _64>);
-	template<i32 P> std::optional<u32> dis_log(MI<P>, MI<P>);
-	template<i32 P> std::vector<std::optional<u32>> dis_logs(MI<P>, std::vector<MI<P>>);
-	template<i32 P> std::optional<u32> ord(MI<P> x);
+	template<i64 P, bool _64 = false> std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64>, ModIntPr<P, _64>);
+	template<i64 P, bool _64 = false> std::vector<std::optional<std::conditional_t<_64, u64, u32>>> dis_logs(ModIntPr<P, _64>, std::vector<ModIntPr<P, _64>>);
+	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> fast_dis_ln(ModIntPr<P, _64>);
+	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> ord(ModIntPr<P, _64>);
+	template<i32 P> std::optional<u32> dis_log(ModInt<P>, ModInt<P>);
+	template<i32 P> std::vector<std::optional<u32>> dis_logs(ModInt<P>, std::vector<ModInt<P>>);
+	template<i32 P> std::optional<u32> ord(ModInt<P> x);
 	// quadradic residue
-	template<i64 P, bool _64 = false> i32 legendre(MIP<P, _64>);
-	template<i64 P, bool _64 = false> std::optional<MIP<P, _64>> sqrt(MIP<P, _64>);
+	template<i64 P, bool _64 = false> i32 legendre(ModIntPr<P, _64>);
+	template<i64 P, bool _64 = false> std::optional<ModIntPr<P, _64>> sqrt(ModIntPr<P, _64>);
 	template<class Derived, i64 P, bool _64 = false> class ModIntBase { // lt 0 for dynamic, le -1073741824 for internal use
 		/* 
 		occupied P shown below:
-		-1073741824 : template<i32 P> MI<P> std::optional<u32> ord(MI<P>)
+		-1073741824 : template<i32 P> ModInt<P> std::optional<u32> ord(ModInt<P>)
 		*/
 	protected:
 		using val_t = std::conditional_t<_64, u64, u32>;
@@ -120,14 +120,14 @@ namespace numtheo_n {
 			return x.val != y.val;
 		}
 	};
-	template<i64 P, bool _64> class MIP : public ModIntBase<MIP<P, _64>, P, _64> { // P prime
+	template<i64 P, bool _64> class ModIntPr : public ModIntBase<ModIntPr<P, _64>, P, _64> { // P prime
 	private:
-		using Base = ModIntBase<MIP<P, _64>, P, _64>;
+		using Base = ModIntBase<ModIntPr<P, _64>, P, _64>;
 		using Base::Base;
 		using typename Base::val_t;
 		using typename Base::mul_t;
 		// O(1) inv
-		inline static std::vector<MIP<P, _64>> inv_v;
+		inline static std::vector<ModIntPr<P, _64>> inv_v;
 		inline static val_t cbrtP_log2, cbrtP, cbrtP2;
 		inline static bool O1inv_mode = false;
 		inline static std::vector<std::pair<val_t, val_t>> farey_v, farey_prec, farey_succ;
@@ -137,37 +137,37 @@ namespace numtheo_n {
 		using Base::mod;
 		using Base::set_mod;
 		// multiplicative inverse
-		template<i128::signed_integral T> friend MIP<P, _64> qpow_signed(MIP<P, _64>, T);
+		template<i128::signed_integral T> friend ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64>, T);
 		template<i128::unsigned_integral T> static void lin_inv_preproc(T);
 		static void O1inv_preproc();
-		friend MIP<P, _64> inv<>(MIP<P, _64>);
-		MIP<P, _64> operator/(MIP<P, _64> x) const {
+		friend ModIntPr<P, _64> inv<>(ModIntPr<P, _64>);
+		ModIntPr<P, _64> operator/(ModIntPr<P, _64> x) const {
 			return *this * inv(x);
 		}
-		MIP<P, _64> &operator/=(MIP<P, _64> x) {
+		ModIntPr<P, _64> &operator/=(ModIntPr<P, _64> x) {
 			return *this = *this * inv(x);
 		}
 		// discrete log
-		friend std::optional<val_t> dis_log<>(MIP<P, _64>, MIP<P, _64>);
-		friend std::vector<std::optional<val_t>> dis_logs<>(MIP<P, _64>, std::vector<MIP<P, _64>>);
-		static void dis_ln_preproc(MIP<P, _64>);
-		friend val_t fast_dis_ln<>(MIP<P, _64>);
-		friend val_t ord<>(MIP<P, _64>);
+		friend std::optional<val_t> dis_log<>(ModIntPr<P, _64>, ModIntPr<P, _64>);
+		friend std::vector<std::optional<val_t>> dis_logs<>(ModIntPr<P, _64>, std::vector<ModIntPr<P, _64>>);
+		static void dis_ln_preproc(ModIntPr<P, _64>);
+		friend val_t fast_dis_ln<>(ModIntPr<P, _64>);
+		friend val_t ord<>(ModIntPr<P, _64>);
 		// quadradic residue
-		friend i32 legendre<>(MIP<P, _64>);
-		friend std::optional<MIP<P, _64>> sqrt<>(MIP<P, _64>);
+		friend i32 legendre<>(ModIntPr<P, _64>);
+		friend std::optional<ModIntPr<P, _64>> sqrt<>(ModIntPr<P, _64>);
 	};
-	template<i32 P> class MI : public ModIntBase<MI<P>, P> {
+	template<i32 P> class ModInt : public ModIntBase<ModInt<P>, P> {
 	private:
-		using Base = ModIntBase<MI<P>, P>;
+		using Base = ModIntBase<ModInt<P>, P>;
 		using Base::Base;
 	public:
 		using Base::mod;
 		using Base::set_mod;
 		// discrete log
-		friend std::optional<u32> dis_log<>(MI<P>, MI<P>);
-		friend std::vector<std::optional<u32>> dis_logs<>(MI<P>, std::vector<MI<P>>);
-		friend std::optional<u32> ord<>(MI<P>);
+		friend std::optional<u32> dis_log<>(ModInt<P>, ModInt<P>);
+		friend std::vector<std::optional<u32>> dis_logs<>(ModInt<P>, std::vector<ModInt<P>>);
+		friend std::optional<u32> ord<>(ModInt<P>);
 	};
 }
 
