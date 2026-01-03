@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 #include "basics.hpp"
+#include "int128.hpp"
 #include "numtheo/euler_sieve.hpp"
 #include "numtheo/excrt.hpp"
 #include "numtheo/modint.hpp"

@@ -15,7 +15,7 @@
 namespace numtheo_n {
 
 	template<i64 P, bool _64 = false> class ModIntPr;
-	template<i32 P> class ModInt;
+	template<i64 P, bool _64 = false> class ModInt;
 
 	// multiplicative inverse
 	template<i128::signed_integral T, i64 P, bool _64 = false> ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64>, T);
@@ -30,9 +30,14 @@ namespace numtheo_n {
 
 	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> fast_dis_ln(ModIntPr<P, _64>);
 	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> ord(ModIntPr<P, _64>);
-	template<i32 P> std::optional<u32> dis_log(ModInt<P>, ModInt<P>);
-	template<i32 P> std::vector<std::optional<u32>> dis_logs(ModInt<P>, std::vector<ModInt<P>>);
-	template<i32 P> std::optional<u32> ord(ModInt<P> x);
+
+	template<i64 P, bool _64 = false>
+	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModInt<P, _64>, ModInt<P, _64>);
+	
+	template<i64 P, bool _64 = false> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
+	dis_logs(ModInt<P, _64>, std::vector<ModInt<P, _64>>);
+
+	template<i64 P, bool _64 = false> std::optional<std::conditional_t<_64, u64, u32>> ord(ModInt<P, _64> x);
 
 	// quadradic residue
 	template<i64 P, bool _64 = false> i32 legendre(ModIntPr<P, _64>);
@@ -177,20 +182,22 @@ namespace numtheo_n {
 		friend std::optional<ModIntPr<P, _64>> sqrt<>(ModIntPr<P, _64>);
 	};
 
-	template<i32 P> class ModInt : public ModIntBase<ModInt<P>, P> {
+	template<i64 P, bool _64> class ModInt : public ModIntBase<ModInt<P, _64>, P, _64> {
 	private:
 
-		using Base = ModIntBase<ModInt<P>, P>;
+		using Base = ModIntBase<ModInt<P, _64>, P, _64>;
 		using Base::Base;
 
 	public:
 
 		using Base::mod;
 		using Base::set_mod;
+		using typename Base::val_t;
+		using typename Base::mul_t;
 		// discrete log
-		friend std::optional<u32> dis_log<>(ModInt<P>, ModInt<P>);
-		friend std::vector<std::optional<u32>> dis_logs<>(ModInt<P>, std::vector<ModInt<P>>);
-		friend std::optional<u32> ord<>(ModInt<P>);
+		friend std::optional<val_t> dis_log<>(ModInt<P, _64>, ModInt<P, _64>);
+		friend std::vector<std::optional<val_t>> dis_logs<>(ModInt<P, _64>, std::vector<ModInt<P, _64>>);
+		friend std::optional<val_t> ord<>(ModInt<P, _64>);
 	};
 
 }
