@@ -20,7 +20,10 @@ namespace numtheo_n {
 		lesqrt_ln.resize(sqrtP + 1);
 		for (val_t i = 0; i < prs.size(); ++i) {
 			if (prln[i].has_value() == false) {
-				throw std::invalid_argument("template<i64 P, bool _64> ModIntPr<P, _64>::static void dis_ln_preproc(ModIntPr<P, _64>) : g not primitive root");
+				throw std::invalid_argument(
+					"template<i64 P, bool _64> ModIntPr<P, _64>::static void dis_ln_preproc"
+					"(ModIntPr<P, _64>) : g not primitive root"
+				);
 			}
 			lesqrt_ln[prs[i].val] = prln[i].value();
 		}
@@ -41,7 +44,8 @@ namespace numtheo_n {
 		}
 		val_t k = MIP::mod() / x.val, r = MIP::mod() % x.val;
 		if (r <= x.val - r) {
-			mul_t ret = static_cast<mul_t>((MIP::mod() - 1) >> 1) + fast_dis_ln(MIP(r, false)) + (MIP::mod() - 1) - MIP::lesqrt_ln[k];
+			mul_t ret = static_cast<mul_t>((MIP::mod() - 1) >> 1) + fast_dis_ln(MIP(r, false))
+					+ (MIP::mod() - 1) - MIP::lesqrt_ln[k];
 			if (ret >= MIP::mod() - 1) {
 				ret -= MIP::mod() - 1;
 				if (ret >= MIP::mod() - 1) {

@@ -60,7 +60,9 @@ namespace numtheo_n {
 		using mul_t = typename MIP::mul_t;
 		using smul_t = i128::make_signed_t<mul_t>;
 		if (x.val == 0) {
-			throw std::invalid_argument("numtheo_n::template<i64 P, bool _64> ModIntPr<P, _64> inv(void) : getting inv(0)");
+			throw std::invalid_argument(
+				"numtheo_n::template<i64 P, bool _64> ModIntPr<P, _64> inv(void) : getting inv(0)"
+			);
 		}
 		if (x.val < MIP::inv_v.size()) {
 			return MIP::inv_v[x.val];
@@ -68,12 +70,14 @@ namespace numtheo_n {
 		if (MIP::O1inv_mode == true) {
 			val_t cur = static_cast<val_t>((static_cast<mul_t>(x.val) << (MIP::cbrtP_log2 << 1)) / MIP::mod());
 			val_t q;
-			sval_t t = static_cast<sval_t>(static_cast<smul_t>(x.val) * MIP::farey_prec[cur].second - static_cast<smul_t>(MIP::mod()) * MIP::farey_prec[cur].first);
+			sval_t t = static_cast<sval_t>(static_cast<smul_t>(x.val) * MIP::farey_prec[cur].second
+					- static_cast<smul_t>(MIP::mod()) * MIP::farey_prec[cur].first);
 			if (static_cast<val_t>(std::abs(t)) <= MIP::cbrtP2) {
 				q = MIP::farey_prec[cur].second;
 			} else {
 				q = MIP::farey_succ[cur].second;
-				t = static_cast<sval_t>(static_cast<smul_t>(x.val) * q - static_cast<smul_t>(MIP::mod()) * MIP::farey_succ[cur].first);
+				t = static_cast<sval_t>(static_cast<smul_t>(x.val) * q
+					- static_cast<smul_t>(MIP::mod()) * MIP::farey_succ[cur].first);
 			}
 			MIP tinv = ((t >= 0) ? MIP::inv_v[t] : -MIP::inv_v[-t]);
 			return MIP(q, false) * tinv;

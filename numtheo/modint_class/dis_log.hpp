@@ -9,7 +9,8 @@
 #include "../prod_funcs.hpp"
 
 namespace numtheo_n {
-	template<i64 P, bool _64> std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64> a, ModIntPr<P, _64> b) {
+	template<i64 P, bool _64>
+	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64> a, ModIntPr<P, _64> b) {
 		using MIP = ModIntPr<P, _64>;
 		using val_t = typename MIP::val_t;
 		using mul_t = typename MIP::mul_t;
@@ -27,7 +28,8 @@ namespace numtheo_n {
 		}
 		return std::nullopt;
 	}
-	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>> dis_logs(ModIntPr<P, _64> a, std::vector<ModIntPr<P, _64>> b) {
+	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
+	dis_logs(ModIntPr<P, _64> a, std::vector<ModIntPr<P, _64>> b) {
 		using MIP = ModIntPr<P, _64>;
 		using val_t = typename MIP::val_t;
 		using mul_t = typename MIP::mul_t;
