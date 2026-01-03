@@ -30,6 +30,7 @@ std::ostream &operator<<(std::ostream &out, __int128_t x) {
 	out << static_cast<__uint128_t>(x);
 	return out;
 }
+
 namespace i128 {	
 	// concepts
 	template<class T> concept unsigned_integral = std::unsigned_integral<T> || std::is_same_v<T, __uint128_t>;

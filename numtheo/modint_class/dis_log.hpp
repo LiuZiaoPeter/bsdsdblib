@@ -10,39 +10,45 @@
 
 namespace numtheo_n {
 	template<i64 P, bool _64> std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64> a, ModIntPr<P, _64> b) {
-		typename ModIntPr<P, _64>::val_t B = static_cast<typename ModIntPr<P, _64>::val_t>(std::sqrt(ModIntPr<P, _64>::mod())) + 2;
-		ModIntPr<P, _64> a_to_y = 1;
-		std::unordered_map<typename ModIntPr<P, _64>::val_t, typename ModIntPr<P, _64>::val_t> bay2y;
-		for (typename ModIntPr<P, _64>::val_t y = 0; y < B; ++y, a_to_y *= a) {
+		using MIP = ModIntPr<P, _64>;
+		using val_t = typename MIP::val_t;
+		using mul_t = typename MIP::mul_t;
+		val_t B = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
+		MIP a_to_y = 1;
+		std::unordered_map<val_t, val_t> bay2y;
+		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
 			bay2y[(b * a_to_y).val] = y;
 		}
-		ModIntPr<P, _64> a_to_B = a_to_y, a_to_B_to_x = a_to_B;
-		for (typename ModIntPr<P, _64>::val_t x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
+		MIP a_to_B = a_to_y, a_to_B_to_x = a_to_B;
+		for (val_t x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
 			if (bay2y.find(a_to_B_to_x.val) != bay2y.end()) {
-				return static_cast<typename ModIntPr<P, _64>::mul_t>(B) * x - bay2y[a_to_B_to_x.val];
+				return static_cast<mul_t>(B) * x - bay2y[a_to_B_to_x.val];
 			}
 		}
 		return std::nullopt;
 	}
 	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>> dis_logs(ModIntPr<P, _64> a, std::vector<ModIntPr<P, _64>> b) {
-		typename ModIntPr<P, _64>::val_t B = static_cast<typename ModIntPr<P, _64>::val_t>(std::sqrt(ModIntPr<P, _64>::mod() / b.size())) + 2;
-		typename ModIntPr<P, _64>::val_t xlim = ModIntPr<P, _64>::mod() / B + 3;
-		ModIntPr<P, _64> a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
-		std::unordered_map<typename ModIntPr<P, _64>::val_t, typename ModIntPr<P, _64>::val_t> aBx2x;
-		for (typename ModIntPr<P, _64>::val_t x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
+		using MIP = ModIntPr<P, _64>;
+		using val_t = typename MIP::val_t;
+		using mul_t = typename MIP::mul_t;
+		val_t B = static_cast<val_t>(std::sqrt(MIP::mod() / b.size())) + 2;
+		val_t xlim = MIP::mod() / B + 3;
+		MIP a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
+		std::unordered_map<val_t, val_t> aBx2x;
+		for (val_t x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
 			if (aBx2x.find(a_to_B_to_x.val) == aBx2x.end()) {
 				aBx2x[a_to_B_to_x.val] = x;
 			}
 		}
-		std::vector<std::optional<typename ModIntPr<P, _64>::val_t>> ret(b.size(), std::nullopt);
-		ModIntPr<P, _64> a_to_y = 1;
-		for (typename ModIntPr<P, _64>::val_t y = 0; y < B; ++y, a_to_y *= a) {
-			for (typename ModIntPr<P, _64>::val_t i = 0; i < ret.size(); ++i) {
-				typename ModIntPr<P, _64>::val_t bayv = (b[i] * a_to_y).val;
+		std::vector<std::optional<val_t>> ret(b.size(), std::nullopt);
+		MIP a_to_y = 1;
+		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
+			for (val_t i = 0; i < ret.size(); ++i) {
+				val_t bayv = (b[i] * a_to_y).val;
 				if (aBx2x.find(bayv) == aBx2x.end()) {
 					continue;
 				}
-				typename ModIntPr<P, _64>::val_t cura = static_cast<typename ModIntPr<P, _64>::val_t>(static_cast<typename ModIntPr<P, _64>::mul_t>(aBx2x[bayv]) * B - y);
+				val_t cura = static_cast<val_t>(static_cast<mul_t>(aBx2x[bayv]) * B - y);
 				if (ret[i].has_value() == false) {
 					ret[i] = cura;
 				} else {
