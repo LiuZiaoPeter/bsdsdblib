@@ -9,40 +9,40 @@
 #include "../prod_funcs.hpp"
 
 namespace numtheo_n {
-	template<i32 P> std::optional<u32> dis_log(MIP<P> a, MIP<P> b) {
-		u32 B = static_cast<u32>(std::sqrt(MIP<P>::mod())) + 2;
-		MIP<P> a_to_y = 1;
-		std::unordered_map<u32, u32> bay2y;
-		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
+	template<i64 P, bool _64> std::optional<std::conditional_t<_64, u64, u32>> dis_log(MIP<P, _64> a, MIP<P, _64> b) {
+		typename MIP<P, _64>::val_t B = static_cast<typename MIP<P, _64>::val_t>(std::sqrt(MIP<P, _64>::mod())) + 2;
+		MIP<P, _64> a_to_y = 1;
+		std::unordered_map<typename MIP<P, _64>::val_t, typename MIP<P, _64>::val_t> bay2y;
+		for (typename MIP<P, _64>::val_t y = 0; y < B; ++y, a_to_y *= a) {
 			bay2y[(b * a_to_y).val] = y;
 		}
-		MIP<P> a_to_B = a_to_y, a_to_B_to_x = a_to_B;
-		for (u32 x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
+		MIP<P, _64> a_to_B = a_to_y, a_to_B_to_x = a_to_B;
+		for (typename MIP<P, _64>::val_t x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
 			if (bay2y.find(a_to_B_to_x.val) != bay2y.end()) {
-				return static_cast<u64>(B) * x - bay2y[a_to_B_to_x.val];
+				return static_cast<typename MIP<P, _64>::mul_t>(B) * x - bay2y[a_to_B_to_x.val];
 			}
 		}
 		return std::nullopt;
 	}
-	template<i32 P> std::vector<std::optional<u32>> dis_logs(MIP<P> a, std::vector<MIP<P>> b) {
-		u32 B = static_cast<u32>(std::sqrt(MIP<P>::mod() / b.size())) + 2;
-		u32 xlim = MIP<P>::mod() / B + 3;
-		MIP<P> a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
-		std::unordered_map<u32, u32> aBx2x;
-		for (u32 x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
+	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>> dis_logs(MIP<P, _64> a, std::vector<MIP<P, _64>> b) {
+		typename MIP<P, _64>::val_t B = static_cast<typename MIP<P, _64>::val_t>(std::sqrt(MIP<P, _64>::mod() / b.size())) + 2;
+		typename MIP<P, _64>::val_t xlim = MIP<P, _64>::mod() / B + 3;
+		MIP<P, _64> a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
+		std::unordered_map<typename MIP<P, _64>::val_t, typename MIP<P, _64>::val_t> aBx2x;
+		for (typename MIP<P, _64>::val_t x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
 			if (aBx2x.find(a_to_B_to_x.val) == aBx2x.end()) {
 				aBx2x[a_to_B_to_x.val] = x;
 			}
 		}
-		std::vector<std::optional<u32>> ret(b.size(), std::nullopt);
-		MIP<P> a_to_y = 1;
-		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
-			for (u32 i = 0; i < ret.size(); ++i) {
-				u32 bayv = (b[i] * a_to_y).val;
+		std::vector<std::optional<typename MIP<P, _64>::val_t>> ret(b.size(), std::nullopt);
+		MIP<P, _64> a_to_y = 1;
+		for (typename MIP<P, _64>::val_t y = 0; y < B; ++y, a_to_y *= a) {
+			for (typename MIP<P, _64>::val_t i = 0; i < ret.size(); ++i) {
+				typename MIP<P, _64>::val_t bayv = (b[i] * a_to_y).val;
 				if (aBx2x.find(bayv) == aBx2x.end()) {
 					continue;
 				}
-				u32 cura = static_cast<u32>(static_cast<u64>(aBx2x[bayv]) * B - y);
+				typename MIP<P, _64>::val_t cura = static_cast<typename MIP<P, _64>::val_t>(static_cast<typename MIP<P, _64>::mul_t>(aBx2x[bayv]) * B - y);
 				if (ret[i].has_value() == false) {
 					ret[i] = cura;
 				} else {
@@ -52,8 +52,8 @@ namespace numtheo_n {
 		}
 		return ret;
 	}
-	template<i32 P> u32 ord(MIP<P> x) {
-		return dis_log(x, MIP<P>(1, false));
+	template<i64 P, bool _64> std::conditional_t<_64, u64, u32> ord(MIP<P, _64> x) {
+		return dis_log(x, MIP<P, _64>(1, false));
 	}
 	template<i32 P> std::optional<u32> dis_log(MI<P> a, MI<P> b) {
 		u32 B = static_cast<u32>(std::sqrt(MI<P>::mod())) + 1;
