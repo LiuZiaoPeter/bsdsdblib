@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "../basics.hpp"
 #include "modint.hpp"
 

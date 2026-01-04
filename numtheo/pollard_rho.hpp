@@ -63,8 +63,7 @@ namespace numtheo_n {
 				for (u32 step = 0; !(step >> k); ++step) {
 					t = f(t);
 					prod = static_cast<u64>(
-						(static_cast<__uint128_t>(prod)
-						* (s < t ? t - s : s - t)) % x
+						(static_cast<__uint128_t>(prod) * (s < t ? t - s : s - t)) % x
 					);
 					++counter;
 					if (counter == 128) {

@@ -1,11 +1,5 @@
 #pragma once
 
-#include <numeric>
-#include <iostream>
-#include <optional>
-#include <stdexcept>
-#include <vector>
-
 #include "../basics.hpp"
 #include "../int128.hpp"
 
