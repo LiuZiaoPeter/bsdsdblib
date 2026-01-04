@@ -8,40 +8,8 @@
 
 #include "../basics.hpp"
 #include "../int128.hpp"
-#include "euler_sieve.hpp"
-#include "pollard_rho.hpp"
-#include "prod_funcs.hpp"
 
 namespace numtheo_n {
-
-	template<i64 P, bool _64 = false> class ModIntPr;
-	template<i64 P, bool _64 = false> class ModInt;
-
-	// multiplicative inverse
-	template<i128::signed_integral T, i64 P, bool _64 = false> ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64>, T);
-	template<i64 P, bool _64 = false> ModIntPr<P, _64> inv(ModIntPr<P, _64>);
-
-	// discrete log
-	template<i64 P, bool _64 = false>
-	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64>, ModIntPr<P, _64>);
-
-	template<i64 P, bool _64 = false> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
-	dis_logs(ModIntPr<P, _64>, std::vector<ModIntPr<P, _64>>);
-
-	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> fast_dis_ln(ModIntPr<P, _64>);
-	template<i64 P, bool _64 = false> std::conditional_t<_64, u64, u32> ord(ModIntPr<P, _64>);
-
-	template<i64 P, bool _64 = false>
-	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModInt<P, _64>, ModInt<P, _64>);
-	
-	template<i64 P, bool _64 = false> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
-	dis_logs(ModInt<P, _64>, std::vector<ModInt<P, _64>>);
-
-	template<i64 P, bool _64 = false> std::optional<std::conditional_t<_64, u64, u32>> ord(ModInt<P, _64> x);
-
-	// quadradic residue
-	template<i64 P, bool _64 = false> i32 legendre(ModIntPr<P, _64>);
-	template<i64 P, bool _64 = false> std::optional<ModIntPr<P, _64>> sqrt(ModIntPr<P, _64>);
 
 	template<class Derived, i64 P, bool _64 = false> class ModIntBase {
 		/*
@@ -49,9 +17,10 @@ namespace numtheo_n {
 		occupied P shown below:
 		-1073741824 : template<i32 P> ModInt<P> std::optional<u32> ord(ModInt<P>)
 		*/
-	protected:
+	public:
 		using val_t = std::conditional_t<_64, u64, u32>;
 		using mul_t = std::conditional_t<_64, __uint128_t, u64>;
+	protected:
 		val_t val;
 		inline static val_t dyn_mod = 0;
 	public:
@@ -138,71 +107,24 @@ namespace numtheo_n {
 	
 	template<i64 P, bool _64> class ModIntPr : public ModIntBase<ModIntPr<P, _64>, P, _64> { // P prime
 	private:
-
 		using Base = ModIntBase<ModIntPr<P, _64>, P, _64>;
 		using Base::Base;
+	public:
 		using typename Base::val_t;
 		using typename Base::mul_t;
-
-		// O(1) inv
-		inline static std::vector<ModIntPr<P, _64>> inv_v;
-		inline static val_t cbrtP_log2, cbrtP, cbrtP2;
-		inline static bool O1inv_mode = false;
-		inline static std::vector<std::pair<val_t, val_t>> farey_v, farey_prec, farey_succ;
-
-		// fast discrete ln
-		inline static std::vector<val_t> lesqrt_ln;
-
-	public:
-
 		using Base::mod;
 		using Base::set_mod;
-
-		// multiplicative inverse
-		template<i128::signed_integral T> friend ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64>, T);
-		template<i128::unsigned_integral T> static void lin_inv_preproc(T);
-		static void O1inv_preproc();
-		friend ModIntPr<P, _64> inv<>(ModIntPr<P, _64>);
-		ModIntPr<P, _64> operator/(ModIntPr<P, _64> x) const {
-			return *this * inv(x);
-		}
-		ModIntPr<P, _64> &operator/=(ModIntPr<P, _64> x) {
-			return *this = *this * inv(x);
-		}
-
-		// discrete log
-		friend std::optional<val_t> dis_log<>(ModIntPr<P, _64>, ModIntPr<P, _64>);
-		friend std::vector<std::optional<val_t>> dis_logs<>(ModIntPr<P, _64>, std::vector<ModIntPr<P, _64>>);
-		static void dis_ln_preproc(ModIntPr<P, _64>);
-		friend val_t fast_dis_ln<>(ModIntPr<P, _64>);
-		friend val_t ord<>(ModIntPr<P, _64>);
-
-		// quadradic residue
-		friend i32 legendre<>(ModIntPr<P, _64>);
-		friend std::optional<ModIntPr<P, _64>> sqrt<>(ModIntPr<P, _64>);
 	};
 
 	template<i64 P, bool _64> class ModInt : public ModIntBase<ModInt<P, _64>, P, _64> {
 	private:
-
 		using Base = ModIntBase<ModInt<P, _64>, P, _64>;
 		using Base::Base;
-
 	public:
-
-		using Base::mod;
-		using Base::set_mod;
 		using typename Base::val_t;
 		using typename Base::mul_t;
-		// discrete log
-		friend std::optional<val_t> dis_log<>(ModInt<P, _64>, ModInt<P, _64>);
-		friend std::vector<std::optional<val_t>> dis_logs<>(ModInt<P, _64>, std::vector<ModInt<P, _64>>);
-		friend std::optional<val_t> ord<>(ModInt<P, _64>);
+		using Base::mod;
+		using Base::set_mod;
 	};
 
 }
-
-#include "modint_class/fast_dis_ln.hpp"
-#include "modint_class/dis_log.hpp"
-#include "modint_class/mul_inv.hpp"
-#include "modint_class/quad_res.hpp"

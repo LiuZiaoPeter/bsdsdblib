@@ -18,7 +18,7 @@ if [ $# -eq 0 ] || [ "$1" == "--all-only" ]; then
 	compile all.hpp
 fi
 if [ $# -eq 0 ] || [ "$1" == "--no-all" ]; then
-	while read line; do
+	while read line || [ -n "$line" ]; do
 		if [ ${#line} -le 9 ] || [ "${line: 9: 1}" != "\"" ]; then
 			continue
 		fi

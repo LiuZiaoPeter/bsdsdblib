@@ -27,9 +27,12 @@ namespace numtheo_n {
 		}
 		return true;
 	}
-	std::optional<u64> min_prim_root(
-		u64 m, u64 phim, const std::vector<std::pair<u64, u32>> &phim_fact
-	) {
+	bool is_prim_root(u64 x, u64 m) {
+		u64 phim = phi(m);
+		auto phim_fact = prime_factors(phim);
+		return is_prim_root(x, m, phim, phim_fact);
+	}
+	std::optional<u64> min_prim_root(u64 m, u64 phim, const std::vector<std::pair<u64, u32>> &phim_fact) {
 		if (m == 2) {
 			return 1;
 		}

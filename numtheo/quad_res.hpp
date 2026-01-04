@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../basics.hpp"
+#include "../basics.hpp"
+#include "modint.hpp"
 
 namespace numtheo_n {
 	template<i64 P, bool _64> i32 legendre(ModIntPr<P, _64> x) {
@@ -40,7 +41,7 @@ namespace numtheo_n {
 			}
 		};
 		MIP ret = qpow(sqrtt{u, MIP(1, false), t}, (MIP::mod() + 1) >> 1, sqrtt{MIP(1, false), MIP(0, false), t}).re;
-		if (ret.val > (-ret).val) {
+		if (ret.value() > (MIP::mod() >> 1)) {
 			return -ret;
 		} else {
 			return ret;

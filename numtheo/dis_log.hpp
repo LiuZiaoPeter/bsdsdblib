@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../../basics.hpp"
-#include "../prod_funcs.hpp"
+#include "../basics.hpp"
+#include "modint.hpp"
 
 namespace numtheo_n {
 	template<i64 P, bool _64>
@@ -18,12 +18,12 @@ namespace numtheo_n {
 		MIP a_to_y = 1;
 		std::unordered_map<val_t, val_t> bay2y;
 		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
-			bay2y[(b * a_to_y).val] = y;
+			bay2y[(b * a_to_y).value()] = y;
 		}
 		MIP a_to_B = a_to_y, a_to_B_to_x = a_to_B;
 		for (val_t x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
-			if (bay2y.find(a_to_B_to_x.val) != bay2y.end()) {
-				return static_cast<mul_t>(B) * x - bay2y[a_to_B_to_x.val];
+			if (bay2y.find(a_to_B_to_x.value()) != bay2y.end()) {
+				return static_cast<mul_t>(B) * x - bay2y[a_to_B_to_x.value()];
 			}
 		}
 		return std::nullopt;
@@ -38,15 +38,15 @@ namespace numtheo_n {
 		MIP a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
 		std::unordered_map<val_t, val_t> aBx2x;
 		for (val_t x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
-			if (aBx2x.find(a_to_B_to_x.val) == aBx2x.end()) {
-				aBx2x[a_to_B_to_x.val] = x;
+			if (aBx2x.find(a_to_B_to_x.value()) == aBx2x.end()) {
+				aBx2x[a_to_B_to_x.value()] = x;
 			}
 		}
 		std::vector<std::optional<val_t>> ret(b.size(), std::nullopt);
 		MIP a_to_y = 1;
 		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
 			for (val_t i = 0; i < ret.size(); ++i) {
-				val_t bayv = (b[i] * a_to_y).val;
+				val_t bayv = (b[i] * a_to_y).value();
 				if (aBx2x.find(bayv) == aBx2x.end()) {
 					continue;
 				}
@@ -73,16 +73,16 @@ namespace numtheo_n {
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (val_t x = 1; x <= B; ++x, a_to_Bx *= a_to_B) {
-			if (aBx2x[a_to_Bx.val].first == 0) {
-				aBx2x[a_to_Bx.val].first = x;
-			} else if (aBx2x[a_to_Bx.val].second == 0) {
-				aBx2x[a_to_Bx.val].second = x;
+			if (aBx2x[a_to_Bx.value()].first == 0) {
+				aBx2x[a_to_Bx.value()].first = x;
+			} else if (aBx2x[a_to_Bx.value()].second == 0) {
+				aBx2x[a_to_Bx.value()].second = x;
 			}
 		}
 		MI a_to_y = 1;
 		std::optional<val_t> ret = std::nullopt;
 		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
-			val_t curv = (b * a_to_y).val;
+			val_t curv = (b * a_to_y).value();
 			if (aBx2x.find(curv) == aBx2x.end()) {
 				continue;
 			}
@@ -113,17 +113,17 @@ namespace numtheo_n {
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (val_t x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
-			if (aBx2x[a_to_Bx.val].first == 0) {
-				aBx2x[a_to_Bx.val].first = x;
-			} else if (aBx2x[a_to_Bx.val].second == 0) {
-				aBx2x[a_to_Bx.val].second = x;
+			if (aBx2x[a_to_Bx.value()].first == 0) {
+				aBx2x[a_to_Bx.value()].first = x;
+			} else if (aBx2x[a_to_Bx.value()].second == 0) {
+				aBx2x[a_to_Bx.value()].second = x;
 			}
 		}
 		MI a_to_y = 1;
 		std::vector<std::optional<val_t>> ret(b.size(), std::nullopt);
 		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
 			for (val_t i = 0; i < ret.size(); ++i) {
-				val_t curv = (b[i] * a_to_y).val;
+				val_t curv = (b[i] * a_to_y).value();
 				if (aBx2x.find(curv) == aBx2x.end()) {
 					continue;
 				}
@@ -147,11 +147,11 @@ namespace numtheo_n {
 	}
 	template<i64 P, bool _64> std::optional<std::conditional_t<_64, u64, u32>> ord(ModInt<P, _64> x) {
 		using MI = ModInt<P, _64>;
-		if (std::gcd(x.val, MI::mod()) != 1) {
+		if (std::gcd(x.value(), MI::mod()) != 1) {
 			return std::nullopt;
 		}
 		using tmpMIP = ModIntPr<-1073741824, _64>;
 		tmpMIP::set_mod(MI::mod());
-		return dis_log(tmpMIP(x.val, false), tmpMIP(1, false));
+		return dis_log(tmpMIP(x.value(), false), tmpMIP(1, false));
 	}
 }
