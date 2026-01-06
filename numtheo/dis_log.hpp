@@ -1,12 +1,14 @@
 #pragma once
 
 #include <cmath>
+#include <numeric>
 #include <optional>
 #include <unordered_map>
 #include <vector>
 
 #include "../basics.hpp"
 #include "modint.hpp"
+#include "prod_funcs.hpp"
 
 namespace numtheo_n {
 	template<i64 P, bool _64>

@@ -21,7 +21,7 @@ namespace numtheo_n {
 		using val_t = typename MIP::val_t;
 		val_t sqrtP = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
 		if (mpf.size() <= sqrtP) {
-			euler_sieve(sqrtP);
+			euler_sieve(static_cast<u32>(sqrtP));
 		}
 		std::vector<MIP> prs;
 		for (val_t i = 2; i <= sqrtP; ++i) {
