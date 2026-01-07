@@ -42,7 +42,7 @@ namespace numtheo_n {
 				val = (static_cast<mul_t>(val) * 10 + (c ^ 48)) % mod();
 			}
 		}
-		friend std::istream &operator>>(std::istream &in, ModIntBase<Derived, P> &x) {
+		friend std::istream &operator>>(std::istream &in, Derived &x) {
 			in >> x.val;
 			return in;
 		}
