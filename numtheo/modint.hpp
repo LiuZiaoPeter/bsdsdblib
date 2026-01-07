@@ -104,8 +104,8 @@ namespace numtheo_n {
 		using Base = ModIntBase<ModIntPr<P, _64>, P, _64>;
 		using Base::Base;
 	public:
-		using typename Base::val_t;
-		using typename Base::mul_t;
+		using Base::val_t;
+		using Base::mul_t;
 		using Base::mod;
 		using Base::set_mod;
 	};
@@ -115,8 +115,8 @@ namespace numtheo_n {
 		using Base = ModIntBase<ModInt<P, _64>, P, _64>;
 		using Base::Base;
 	public:
-		using typename Base::val_t;
-		using typename Base::mul_t;
+		using Base::val_t;
+		using Base::mul_t;
 		using Base::mod;
 		using Base::set_mod;
 	};

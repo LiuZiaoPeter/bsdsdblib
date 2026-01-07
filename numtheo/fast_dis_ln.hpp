@@ -18,7 +18,7 @@ namespace numtheo_n {
 	template<i64 P, bool _64> void dis_ln_preproc(ModIntPr<P, _64> g) {
 		using MIP = ModIntPr<P, _64>;
 		using aux = fast_dis_ln_hpp::aux<P, _64>;
-		using val_t = typename MIP::val_t;
+		using val_t = MIP::val_t;
 		val_t sqrtP = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
 		if (mpf.size() <= sqrtP) {
 			euler_sieve(static_cast<u32>(sqrtP));
@@ -51,8 +51,8 @@ namespace numtheo_n {
 	template<i64 P, bool _64> std::conditional_t<_64, u64, u32> fast_dis_ln(ModIntPr<P, _64> x) {
 		using MIP = ModIntPr<P, _64>;
 		using aux = fast_dis_ln_hpp::aux<P, _64>;
-		using val_t = typename MIP::val_t;
-		using mul_t = typename MIP::mul_t;
+		using val_t = MIP::val_t;
+		using mul_t = MIP::mul_t;
 		if (x.value() < aux::lesqrt_ln.size()) {
 			return aux::lesqrt_ln[x.value()];
 		}

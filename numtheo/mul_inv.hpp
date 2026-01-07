@@ -19,7 +19,7 @@ namespace mul_inv_hpp {
 }
 
 namespace numtheo_n {
-	template<i128::signed_integral T, i64 P, bool _64> ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64> x, T y) {
+	template<i64 P, bool _64, i128::signed_integral T> ModIntPr<P, _64> qpow_signed(ModIntPr<P, _64> x, T y) {
 		using MIP = ModIntPr<P, _64>;
 		y %= MIP::mod() - 1;
 		if (y < 0) {
@@ -39,7 +39,7 @@ namespace numtheo_n {
 	template<i64 P, bool _64> void O1inv_preproc() {
 		using MIP = ModIntPr<P, _64>;
 		using aux = mul_inv_hpp::aux<P, _64>;
-		using val_t = typename MIP::val_t;
+		using val_t = MIP::val_t;
 		aux::O1inv_mode = true;
 		aux::cbrtP_log2 = std::bit_width(static_cast<val_t>(std::cbrt(MIP::mod()) + 1));
 		aux::cbrtP = static_cast<val_t>(1) << aux::cbrtP_log2;
@@ -72,9 +72,9 @@ namespace numtheo_n {
 	template<i64 P, bool _64> ModIntPr<P, _64> inv(ModIntPr<P, _64> x) {
 		using MIP = ModIntPr<P, _64>;
 		using aux = mul_inv_hpp::aux<P, _64>;
-		using val_t = typename MIP::val_t;
+		using val_t = MIP::val_t;
 		using sval_t = i128::make_signed_t<val_t>;
-		using mul_t = typename MIP::mul_t;
+		using mul_t = MIP::mul_t;
 		using smul_t = i128::make_signed_t<mul_t>;
 		if (x.value() == 0) {
 			throw std::invalid_argument(

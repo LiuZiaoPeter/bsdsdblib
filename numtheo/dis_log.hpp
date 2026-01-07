@@ -14,8 +14,8 @@ namespace numtheo_n {
 	template<i64 P, bool _64>
 	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64> a, ModIntPr<P, _64> b) {
 		using MIP = ModIntPr<P, _64>;
-		using val_t = typename MIP::val_t;
-		using mul_t = typename MIP::mul_t;
+		using val_t = MIP::val_t;
+		using mul_t = MIP::mul_t;
 		val_t B = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
 		MIP a_to_y = 1;
 		std::unordered_map<val_t, val_t> bay2y;
@@ -33,8 +33,8 @@ namespace numtheo_n {
 	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
 	dis_logs(ModIntPr<P, _64> a, std::vector<ModIntPr<P, _64>> b) {
 		using MIP = ModIntPr<P, _64>;
-		using val_t = typename MIP::val_t;
-		using mul_t = typename MIP::mul_t;
+		using val_t = MIP::val_t;
+		using mul_t = MIP::mul_t;
 		val_t B = static_cast<val_t>(std::sqrt(MIP::mod() / b.size())) + 2;
 		val_t xlim = MIP::mod() / B + 3;
 		MIP a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
@@ -69,8 +69,8 @@ namespace numtheo_n {
 	template<i64 P, bool _64>
 	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModInt<P, _64> a, ModInt<P, _64> b) {
 		using MI = ModInt<P, _64>;
-		using val_t = typename MI::val_t;
-		using mul_t = typename MI::mul_t;
+		using val_t = MI::val_t;
+		using mul_t = MI::mul_t;
 		val_t B = static_cast<val_t>(std::sqrt(MI::mod())) + 1;
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
@@ -108,8 +108,8 @@ namespace numtheo_n {
 	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
 	dis_logs(ModInt<P, _64> a, std::vector<ModInt<P, _64>> b) {
 		using MI = ModInt<P, _64>;
-		using val_t = typename MI::val_t;
-		using mul_t = typename MI::mul_t;
+		using val_t = MI::val_t;
+		using mul_t = MI::mul_t;
 		val_t B = static_cast<val_t>(std::sqrt(phi(MI::mod()) / b.size())) + 2;
 		val_t xlim = MI::mod() / B + 3;
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;

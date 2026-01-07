@@ -1,2 +1,3 @@
+*.out
 *.gch
 gch_test.sh
