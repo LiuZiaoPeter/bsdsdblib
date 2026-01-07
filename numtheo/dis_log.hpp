@@ -1,3 +1,5 @@
+// tested by : lg_P3846, lg_P4195, lg_U648171, lg_U648236
+
 #pragma once
 
 #include <cmath>
@@ -31,7 +33,7 @@ namespace numtheo_n {
 		return std::nullopt;
 	}
 	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
-	dis_logs(ModIntPr<P, _64> a, std::vector<ModIntPr<P, _64>> b) {
+	dis_logs(ModIntPr<P, _64> a, const std::vector<ModIntPr<P, _64>> &b) {
 		using MIP = ModIntPr<P, _64>;
 		using val_t = MIP::val_t;
 		using mul_t = MIP::mul_t;
@@ -106,7 +108,7 @@ namespace numtheo_n {
 		return ret;
 	}
 	template<i64 P, bool _64> std::vector<std::optional<std::conditional_t<_64, u64, u32>>>
-	dis_logs(ModInt<P, _64> a, std::vector<ModInt<P, _64>> b) {
+	dis_logs(ModInt<P, _64> a, const std::vector<ModInt<P, _64>> &b) {
 		using MI = ModInt<P, _64>;
 		using val_t = MI::val_t;
 		using mul_t = MI::mul_t;
