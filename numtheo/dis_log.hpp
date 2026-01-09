@@ -151,11 +151,11 @@ namespace numtheo {
 	}
 	template<i64 P, bool _64> std::optional<std::conditional_t<_64, u64, u32>> ord(ModInt<P, _64> x) {
 		using MI = ModInt<P, _64>;
+		using tmpMIP = ModIntPr<modint_inner + 1, _64>; // mod : MI::mod()
+		tmpMIP::set_mod(MI::mod());
 		if (std::gcd(x.value(), MI::mod()) != 1) {
 			return std::nullopt;
 		}
-		using tmpMIP = ModIntPr<-1073741824, _64>;
-		tmpMIP::set_mod(MI::mod());
 		return dis_log(tmpMIP(x.value(), false), tmpMIP(1, false));
 	}
 }

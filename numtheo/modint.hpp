@@ -3,12 +3,16 @@
 #include "../basics.hpp"
 
 namespace numtheo {
-
+	constexpr i64 modint_inner = -2000000000;
 	template<class Derived, i64 P, bool _64 = false> class ModIntBase {
 		/*
-		lt 0 for dynamic, le -1073741824 for internal use
+		lt 0 for dynamic, lt -2e9 for internal use
 		occupied P shown below:
-		-1073741824 : template<i32 P> ModInt<P> std::optional<u32> ord(ModInt<P>)
+		1	dis_log.hpp > ord
+		2	excrt.hpp > excrt(T, T, T, T)
+		3	pollard_rho.hpp > miller_rabin
+		4	pollard_rho.hpp > pollard_rho
+		5	prim_root.hpp > is_prim_root
 		*/
 	public:
 		using val_t = std::conditional_t<_64, u64, u32>;
@@ -97,7 +101,6 @@ namespace numtheo {
 			return x.val != y.val;
 		}
 	};
-	
 	template<i64 P, bool _64> class ModIntPr : public ModIntBase<ModIntPr<P, _64>, P, _64> { // P prime
 	private:
 		using Base = ModIntBase<ModIntPr<P, _64>, P, _64>;
@@ -108,7 +111,6 @@ namespace numtheo {
 		using Base::mod;
 		using Base::set_mod;
 	};
-
 	template<i64 P, bool _64> class ModInt : public ModIntBase<ModInt<P, _64>, P, _64> {
 	private:
 		using Base = ModIntBase<ModInt<P, _64>, P, _64>;
@@ -119,5 +121,8 @@ namespace numtheo {
 		using Base::mod;
 		using Base::set_mod;
 	};
-
+	template<i64 P> using ModIntPr32 = ModIntPr<P, false>;
+	template<i64 P> using ModIntPr64 = ModIntPr<P, true>;
+	template<i64 P> using ModInt32 = ModInt<P, false>;
+	template<i64 P> using ModInt64 = ModInt<P, true>;
 }

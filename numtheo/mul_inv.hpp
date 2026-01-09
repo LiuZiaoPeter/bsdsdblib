@@ -73,7 +73,7 @@ namespace numtheo {
 		using aux = mul_inv_hpp::aux<P, _64>;
 		if (x.value() == 0) {
 			throw std::invalid_argument(
-				"numtheo::template<i64 P, bool _64> ModIntPr<P, _64> inv(void) : getting inv(0)"
+				__func_str__ + " : getting inv(0)"
 			);
 		}
 		if (x.value() < aux::inv_v.size()) {

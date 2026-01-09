@@ -35,8 +35,7 @@ namespace numtheo {
 		for (u32 i = 0; i < prs.size(); ++i) {
 			if (prln[i].has_value() == false) {
 				throw std::invalid_argument(
-					"template<i64 P, bool _64> ModIntPr<P, _64>::static void dis_ln_preproc"
-					"(ModIntPr<P, _64>) : g not primitive root"
+					__func_str__ + " : g not primitive root"
 				);
 			}
 			aux::lesqrt_ln[prs[i].value()] = prln[i].value();

@@ -4,7 +4,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mi = numtheo::ModInt<-1, true>;
+using MI = numtheo::ModInt64<-1>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -13,11 +13,11 @@ int main() {
 	u64 p;
 	u32 n;
 	std::cin >> t >> p >> n;
-	mi::set_mod(p);
-	mi a;
+	MI::set_mod(p);
+	MI a;
 	std::cin >> a;
-	std::vector<mi> b(n);
-	for (mi &i : b) {
+	std::vector<MI> b(n);
+	for (MI &i : b) {
 		std::cin >> i;
 	}
 	auto ans = numtheo::dis_logs(a, b);

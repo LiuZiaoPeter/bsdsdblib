@@ -5,21 +5,21 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/fast_dis_ln.hpp"
 
-using mip = numtheo::ModIntPr<-1, false>;
+using MIP = numtheo::ModIntPr32<-1>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr), std::cout.tie(nullptr);
 	u32 p;
 	std::cin >> p;
-	mip::set_mod(p);
-	mip g;
+	MIP::set_mod(p);
+	MIP g;
 	std::cin >> g;
 	numtheo::dis_ln_preproc(g);
 	u32 q;
 	std::cin >> q;
 	while (q--) {
-		mip x;
+		MIP x;
 		std::cin >> x;
 		std::cout << numtheo::fast_dis_ln(x) << '\n';
 	}

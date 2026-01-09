@@ -4,19 +4,19 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mi = numtheo::ModInt<-1, false>;
+using MI = numtheo::ModInt32<-1>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr), std::cout.tie(nullptr);
 	u32 _a, p, _b;
-	mi a, b;
+	MI a, b;
 	while (true) {
 		std::cin >> _a >> p >> _b;
 		if (!p) {
 			break;
 		}
-		mi::set_mod(p);
+		MI::set_mod(p);
 		a = _a, b = _b;
 		if (p == 1 || b == 1) {
 			std::cout << "0\n";

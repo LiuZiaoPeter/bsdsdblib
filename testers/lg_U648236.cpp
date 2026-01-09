@@ -4,13 +4,13 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mi = numtheo::ModInt<-1, true>;
+using MI = numtheo::ModInt64<-1>;
 
 int main() {
 	u64 p;
 	std::cin >> p;
-	mi::set_mod(p);
-	mi a;
+	MI::set_mod(p);
+	MI a;
 	std::cin >> a;
 	auto ans = numtheo::ord(a);
 	if (ans.has_value()) {

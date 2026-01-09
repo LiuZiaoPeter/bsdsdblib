@@ -4,7 +4,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/o1gcd.hpp"
 
-using mip = numtheo::ModIntPr<998244353, false>;
+using MIP = numtheo::ModIntPr32<998244353>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -20,10 +20,10 @@ int main() {
 		std::cin >> i;
 	}
 	for (u32 i = 0; i < n; ++i) {
-		mip ans = 0, coe = 1;
+		MIP ans = 0, coe = 1;
 		for (u32 j = 0; j < n; ++j) {
 			coe *= i + 1;
-			ans += mip(numtheo::O1gcd(a[i], b[j]), false) * coe;
+			ans += MIP(numtheo::O1gcd(a[i], b[j]), false) * coe;
 		}
 		std::cout << ans.value() << '\n';
 	}

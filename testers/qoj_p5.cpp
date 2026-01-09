@@ -1,10 +1,10 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/mul_inv.hpp"
 
-using mip = numtheo::ModIntPr<998244353, true>;
+using mip = numtheo::ModIntPr32<998244353>;
 
 void init(int) {
-	numtheo::O1inv_preproc<998244353, true>();
+	numtheo::O1inv_preproc<998244353, false>();
 }
 
 int inv(int x) {

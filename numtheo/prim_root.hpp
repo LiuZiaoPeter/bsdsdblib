@@ -12,18 +12,13 @@
 
 namespace numtheo {
 	template<i128::liftable_unsigned T> bool is_prim_root(T x, T m, T phim, const std::vector<std::pair<T, u32>> &phim_fact) {
+		using MI = ModInt<modint_inner + 5, std::is_same_v<T, u64>>;
+		MI::set_mod(m);
 		if (std::gcd(x, m) != 1) {
 			return false;
 		}
-		struct modm {
-			T val, _mod;
-			modm &operator*=(modm _x) {
-				val = static_cast<T>(static_cast<i128::up_t<T>>(val) * _x.val % _mod);
-				return *this;
-			}
-		};
 		for (auto i : phim_fact) {
-			if (qpow(modm{x, m}, phim / i.first, modm{1, m}).val == 1) {
+			if (qpow(MI(x, false), phim / i.first).value() == 1) {
 				return false;
 			}
 		}

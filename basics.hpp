@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <cstdint>
-#include <cstring>
+#include <string>
 #include <iostream>
 #include <type_traits>
 
@@ -102,3 +102,5 @@ template<class T, i128::unsigned_integral U> T qpow(T x, U y, const T &mul_iden 
 	}
 	return ret;
 }
+
+#define __func_str__ static_cast<std::string>(__func__)
