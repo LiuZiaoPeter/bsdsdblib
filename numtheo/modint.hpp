@@ -1,9 +1,8 @@
 #pragma once
 
 #include "../basics.hpp"
-#include "../int128.hpp"
 
-namespace numtheo_n {
+namespace numtheo {
 
 	template<class Derived, i64 P, bool _64 = false> class ModIntBase {
 		/*
@@ -13,7 +12,7 @@ namespace numtheo_n {
 		*/
 	public:
 		using val_t = std::conditional_t<_64, u64, u32>;
-		using mul_t = std::conditional_t<_64, __uint128_t, u64>;
+		using mul_t = i128::up_t<val_t>;
 	protected:
 		val_t val;
 		inline static val_t dyn_mod = 0;

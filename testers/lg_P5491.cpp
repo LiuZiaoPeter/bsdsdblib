@@ -5,7 +5,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/quad_res.hpp"
 
-using mip = numtheo_n::ModIntPr<-1, false>;
+using mip = numtheo::ModIntPr<-1, false>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -20,7 +20,7 @@ int main() {
 			continue;
 		}
 		mip::set_mod(p);
-		auto ans = numtheo_n::sqrt(mip(n));
+		auto ans = numtheo::sqrt(mip(n));
 		if (ans.has_value() == false) {
 			std::cout << "Hola!\n";
 		} else {

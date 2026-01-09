@@ -12,20 +12,20 @@
 #include "modint.hpp"
 #include "prod_funcs.hpp"
 
-namespace numtheo_n {
+namespace numtheo {
 	template<i64 P, bool _64>
 	std::optional<std::conditional_t<_64, u64, u32>> dis_log(ModIntPr<P, _64> a, ModIntPr<P, _64> b) {
 		using MIP = ModIntPr<P, _64>;
 		using val_t = MIP::val_t;
 		using mul_t = MIP::mul_t;
-		val_t B = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
+		u32 B = static_cast<u32>(std::sqrt(MIP::mod())) + 2;
 		MIP a_to_y = 1;
 		std::unordered_map<val_t, val_t> bay2y;
-		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
+		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			bay2y[(b * a_to_y).value()] = y;
 		}
 		MIP a_to_B = a_to_y, a_to_B_to_x = a_to_B;
-		for (val_t x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
+		for (u32 x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
 			if (bay2y.find(a_to_B_to_x.value()) != bay2y.end()) {
 				return static_cast<mul_t>(B) * x - bay2y[a_to_B_to_x.value()];
 			}
@@ -37,19 +37,19 @@ namespace numtheo_n {
 		using MIP = ModIntPr<P, _64>;
 		using val_t = MIP::val_t;
 		using mul_t = MIP::mul_t;
-		val_t B = static_cast<val_t>(std::sqrt(MIP::mod() / b.size())) + 2;
-		val_t xlim = MIP::mod() / B + 3;
+		u32 B = static_cast<u32>(std::sqrt(MIP::mod() / b.size())) + 2;
+		u32 xlim = static_cast<u32>(MIP::mod() / B) + 3;
 		MIP a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
 		std::unordered_map<val_t, val_t> aBx2x;
-		for (val_t x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
+		for (u32 x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
 			if (aBx2x.find(a_to_B_to_x.value()) == aBx2x.end()) {
 				aBx2x[a_to_B_to_x.value()] = x;
 			}
 		}
 		std::vector<std::optional<val_t>> ret(b.size(), std::nullopt);
 		MIP a_to_y = 1;
-		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
-			for (val_t i = 0; i < ret.size(); ++i) {
+		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
+			for (u32 i = 0; i < ret.size(); ++i) {
 				val_t bayv = (b[i] * a_to_y).value();
 				if (aBx2x.find(bayv) == aBx2x.end()) {
 					continue;
@@ -73,10 +73,10 @@ namespace numtheo_n {
 		using MI = ModInt<P, _64>;
 		using val_t = MI::val_t;
 		using mul_t = MI::mul_t;
-		val_t B = static_cast<val_t>(std::sqrt(MI::mod())) + 1;
+		u32 B = static_cast<u32>(std::sqrt(MI::mod())) + 1;
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
-		for (val_t x = 1; x <= B; ++x, a_to_Bx *= a_to_B) {
+		for (u32 x = 1; x <= B; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
 				aBx2x[a_to_Bx.value()].first = x;
 			} else if (aBx2x[a_to_Bx.value()].second == 0) {
@@ -85,7 +85,7 @@ namespace numtheo_n {
 		}
 		MI a_to_y = 1;
 		std::optional<val_t> ret = std::nullopt;
-		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
+		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			val_t curv = (b * a_to_y).value();
 			if (aBx2x.find(curv) == aBx2x.end()) {
 				continue;
@@ -112,11 +112,11 @@ namespace numtheo_n {
 		using MI = ModInt<P, _64>;
 		using val_t = MI::val_t;
 		using mul_t = MI::mul_t;
-		val_t B = static_cast<val_t>(std::sqrt(phi(MI::mod()) / b.size())) + 2;
-		val_t xlim = MI::mod() / B + 3;
+		u32 B = static_cast<u32>(std::sqrt(phi(MI::mod()) / b.size())) + 2;
+		u32 xlim = static_cast<u32>(MI::mod() / B) + 3;
 		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
-		for (val_t x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
+		for (u32 x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
 				aBx2x[a_to_Bx.value()].first = x;
 			} else if (aBx2x[a_to_Bx.value()].second == 0) {
@@ -125,8 +125,8 @@ namespace numtheo_n {
 		}
 		MI a_to_y = 1;
 		std::vector<std::optional<val_t>> ret(b.size(), std::nullopt);
-		for (val_t y = 0; y < B; ++y, a_to_y *= a) {
-			for (val_t i = 0; i < ret.size(); ++i) {
+		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
+			for (u32 i = 0; i < ret.size(); ++i) {
 				val_t curv = (b[i] * a_to_y).value();
 				if (aBx2x.find(curv) == aBx2x.end()) {
 					continue;

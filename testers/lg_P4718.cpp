@@ -5,10 +5,10 @@
 #include "../numtheo/pollard_rho.hpp"
 
 u64 ans(u64 x) {
-	if (numtheo_n::miller_rabin(x)) {
+	if (numtheo::miller_rabin(x)) {
 		return x;
 	}
-	u64 d = numtheo_n::pollard_rho(x);
+	u64 d = numtheo::pollard_rho(x);
 	return std::max(ans(d), ans(x / d));
 }
 
@@ -20,7 +20,7 @@ int main() {
 	while (T--) {
 		u64 n;
 		std::cin >> n;
-		if (numtheo_n::miller_rabin(n)) {
+		if (numtheo::miller_rabin(n)) {
 			std::cout << "Prime\n";
 		} else {
 			std::cout << ans(n) << '\n';

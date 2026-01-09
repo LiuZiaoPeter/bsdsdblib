@@ -13,7 +13,7 @@ int main() {
 	for (u32 i = 0; i < n; ++i) {
 		std::cin >> p[i] >> a[i];
 	}
-	auto ans = numtheo_n::excrt(a, p);
+	auto ans = numtheo::excrt(a, p);
 	std::cout << ans.value().first << std::endl;
 	return 0;
 }

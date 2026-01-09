@@ -4,7 +4,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mi = numtheo_n::ModInt<-1, true>;
+using mi = numtheo::ModInt<-1, true>;
 
 int main() {
 	u64 p;
@@ -12,7 +12,7 @@ int main() {
 	mi::set_mod(p);
 	mi a;
 	std::cin >> a;
-	auto ans = numtheo_n::ord(a);
+	auto ans = numtheo::ord(a);
 	if (ans.has_value()) {
 		std::cout << ans.value() << std::endl;
 	} else {

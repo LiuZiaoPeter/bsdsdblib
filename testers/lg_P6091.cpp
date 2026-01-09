@@ -11,7 +11,7 @@ int main() {
 	while (T--) {
 		u32 n, d;
 		std::cin >> n >> d;
-		auto ans = numtheo_n::prim_roots(n);
+		auto ans = numtheo::prim_roots(n);
 		std::cout << ans.size() << '\n';
 		for (u32 i = d - 1; i < ans.size(); i += d) {
 			std::cout << ans[i] << ' ';

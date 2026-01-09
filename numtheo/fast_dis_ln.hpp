@@ -16,24 +16,23 @@ namespace fast_dis_ln_hpp {
 	};
 }
 
-namespace numtheo_n {
+namespace numtheo {
 	template<i64 P, bool _64> void dis_ln_preproc(ModIntPr<P, _64> g) {
 		using MIP = ModIntPr<P, _64>;
 		using aux = fast_dis_ln_hpp::aux<P, _64>;
-		using val_t = MIP::val_t;
-		val_t sqrtP = static_cast<val_t>(std::sqrt(MIP::mod())) + 2;
+		u32 sqrtP = static_cast<u32>(std::sqrt(MIP::mod())) + 2;
 		if (mpf.size() <= sqrtP) {
-			euler_sieve(static_cast<u32>(sqrtP));
+			euler_sieve(sqrtP);
 		}
 		std::vector<MIP> prs;
-		for (val_t i = 2; i <= sqrtP; ++i) {
+		for (u32 i = 2; i <= sqrtP; ++i) {
 			if (mpf[i] == i) {
 				prs.emplace_back(i, false);
 			}
 		}
 		auto prln = dis_logs(g, prs);
 		aux::lesqrt_ln.resize(sqrtP + 1);
-		for (val_t i = 0; i < prs.size(); ++i) {
+		for (u32 i = 0; i < prs.size(); ++i) {
 			if (prln[i].has_value() == false) {
 				throw std::invalid_argument(
 					"template<i64 P, bool _64> ModIntPr<P, _64>::static void dis_ln_preproc"
@@ -43,7 +42,7 @@ namespace numtheo_n {
 			aux::lesqrt_ln[prs[i].value()] = prln[i].value();
 		}
 		aux::lesqrt_ln[1] = 0;
-		for (val_t i = 4; i <= sqrtP; ++i) {
+		for (u32 i = 4; i <= sqrtP; ++i) {
 			aux::lesqrt_ln[i] = aux::lesqrt_ln[mpf[i]] + aux::lesqrt_ln[i / mpf[i]];
 			if (aux::lesqrt_ln[i] >= MIP::mod() - 1) {
 				aux::lesqrt_ln[i] -= MIP::mod() - 1;

@@ -8,7 +8,7 @@
 #include "../basics.hpp"
 #include "modint.hpp"
 
-namespace numtheo_n {
+namespace numtheo {
 	template<i64 P, bool _64> i32 legendre(ModIntPr<P, _64> x) {
 		using MIP = ModIntPr<P, _64>;
 		if (x == 0) {

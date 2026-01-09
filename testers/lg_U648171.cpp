@@ -4,7 +4,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mi = numtheo_n::ModInt<-1, true>;
+using mi = numtheo::ModInt<-1, true>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -20,7 +20,7 @@ int main() {
 	for (mi &i : b) {
 		std::cin >> i;
 	}
-	auto ans = numtheo_n::dis_logs(a, b);
+	auto ans = numtheo::dis_logs(a, b);
 	for (auto i : ans) {
 		if (i.has_value()) {
 			std::cout << i.value() << ' ';

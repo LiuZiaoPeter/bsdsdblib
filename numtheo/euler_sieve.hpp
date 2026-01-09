@@ -7,7 +7,7 @@
 
 #include "../basics.hpp"
 
-namespace numtheo_n {
+namespace numtheo {
 	std::vector<u32> primes, mpf;
 	void euler_sieve(u32 N) {
 		primes.clear();

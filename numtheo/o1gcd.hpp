@@ -10,7 +10,7 @@
 #include "../basics.hpp"
 #include "euler_sieve.hpp"
 
-namespace numtheo_n {
+namespace numtheo {
 	std::vector<std::array<u32, 3>> gcd_decomp;
 	std::vector<std::vector<u32>> gcd_table;
 	void O1gcd_preproc(u32 N) {

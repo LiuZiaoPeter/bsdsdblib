@@ -4,12 +4,12 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/o1gcd.hpp"
 
-using mip = numtheo_n::ModIntPr<998244353, false>;
+using mip = numtheo::ModIntPr<998244353, false>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr), std::cout.tie(nullptr);
-	numtheo_n::O1gcd_preproc(1000000);
+	numtheo::O1gcd_preproc(1000000);
 	u32 n;
 	std::cin >> n;
 	std::vector<u32> a(n), b(n);
@@ -23,7 +23,7 @@ int main() {
 		mip ans = 0, coe = 1;
 		for (u32 j = 0; j < n; ++j) {
 			coe *= i + 1;
-			ans += mip(numtheo_n::O1gcd(a[i], b[j]), false) * coe;
+			ans += mip(numtheo::O1gcd(a[i], b[j]), false) * coe;
 		}
 		std::cout << ans.value() << '\n';
 	}

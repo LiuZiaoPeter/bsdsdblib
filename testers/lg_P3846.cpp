@@ -4,7 +4,7 @@
 #include "../numtheo/modint.hpp"
 #include "../numtheo/dis_log.hpp"
 
-using mip = numtheo_n::ModIntPr<-1, false>;
+using mip = numtheo::ModIntPr<-1, false>;
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -17,7 +17,7 @@ int main() {
 	if (n == 1) {
 		std::cout << "0\n";
 	} else {
-		auto ans = numtheo_n::dis_log(b, n);
+		auto ans = numtheo::dis_log(b, n);
 		if (ans.has_value()) {
 			std::cout << ans.value() << std::endl;
 		} else {
