@@ -39,7 +39,7 @@ namespace numtheo {
 		using mul_t = MIP::mul_t;
 		u32 B = static_cast<u32>(std::sqrt(MIP::mod() / b.size())) + 2;
 		u32 xlim = static_cast<u32>(MIP::mod() / B) + 3;
-		MIP a_to_B = qpow(a, B), a_to_B_to_x = a_to_B;
+		MIP a_to_B = qpow(a, B, MIP(1, false)), a_to_B_to_x = a_to_B;
 		std::unordered_map<val_t, val_t> aBx2x;
 		for (u32 x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
 			if (aBx2x.find(a_to_B_to_x.value()) == aBx2x.end()) {
@@ -74,7 +74,7 @@ namespace numtheo {
 		using val_t = MI::val_t;
 		using mul_t = MI::mul_t;
 		u32 B = static_cast<u32>(std::sqrt(MI::mod())) + 1;
-		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
+		MI a_to_B = qpow(a, B, MI(1, false)), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (u32 x = 1; x <= B; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
@@ -95,7 +95,7 @@ namespace numtheo {
 					continue;
 				}
 				val_t cur = static_cast<val_t>(static_cast<mul_t>(B) * x - y);
-				if (qpow(a, cur) == b) {
+				if (qpow(a, cur, MI(1, false)) == b) {
 					if (ret.has_value()) {
 						ret = std::min(ret.value(), cur);
 					} else {
@@ -114,7 +114,7 @@ namespace numtheo {
 		using mul_t = MI::mul_t;
 		u32 B = static_cast<u32>(std::sqrt(phi(MI::mod()) / b.size())) + 2;
 		u32 xlim = static_cast<u32>(MI::mod() / B) + 3;
-		MI a_to_B = qpow(a, B), a_to_Bx = a_to_B;
+		MI a_to_B = qpow(a, B, MI(1, false)), a_to_Bx = a_to_B;
 		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (u32 x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
@@ -136,7 +136,7 @@ namespace numtheo {
 						continue;
 					}
 					val_t cur = static_cast<val_t>(static_cast<mul_t>(B) * x - y);
-					if (qpow(a, cur) == b[i]) {
+					if (qpow(a, cur, MI(1, false)) == b[i]) {
 						if (ret[i].has_value() == false) {
 							ret[i] = cur;
 						} else {

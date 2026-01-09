@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 #include "basics.hpp"
+#include "numtheo/cont_frac.hpp"
 #include "numtheo/dis_log.hpp"
 #include "numtheo/euler_sieve.hpp"
 #include "numtheo/excrt.hpp"
@@ -12,3 +13,4 @@
 #include "numtheo/prim_root.hpp"
 #include "numtheo/prod_funcs.hpp"
 #include "numtheo/quad_res.hpp"
+#include "numtheo/square_decomp_2.hpp"

@@ -14,7 +14,7 @@ namespace numtheo {
 		if (x == 0) {
 			return 0;
 		}
-		if (qpow(x, (MIP::mod() - 1) >> 1) == 1) {
+		if (qpow(x, (MIP::mod() - 1) >> 1, MIP(1, false)) == 1) {
 			return 1;
 		}
 		return -1;

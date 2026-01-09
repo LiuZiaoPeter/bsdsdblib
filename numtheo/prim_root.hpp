@@ -18,7 +18,7 @@ namespace numtheo {
 			return false;
 		}
 		for (auto i : phim_fact) {
-			if (qpow(MI(x, false), phim / i.first).value() == 1) {
+			if (qpow(MI(x, false), phim / i.first, MI(1, false)).value() == 1) {
 				return false;
 			}
 		}

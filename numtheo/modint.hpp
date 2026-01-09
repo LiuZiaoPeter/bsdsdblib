@@ -13,6 +13,7 @@ namespace numtheo {
 		3	pollard_rho.hpp > miller_rabin
 		4	pollard_rho.hpp > pollard_rho
 		5	prim_root.hpp > is_prim_root
+		6	square_decomp_2.hpp > sqdecomp2_m4e1
 		*/
 	public:
 		using val_t = std::conditional_t<_64, u64, u32>;

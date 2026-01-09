@@ -25,7 +25,7 @@ namespace numtheo {
 		if (y < 0) {
 			y += MIP::mod() - 1;
 		}
-		return qpow(x, y);
+		return qpow(x, y, MIP(1, false));
 	}
 	template<i64 P, bool _64> void lin_inv_preproc(u32 N) {
 		using MIP = ModIntPr<P, _64>;
@@ -94,7 +94,7 @@ namespace numtheo {
 			MIP tinv = ((t >= 0) ? aux::inv_v[t] : -aux::inv_v[-t]);
 			return MIP(q, false) * tinv;
 		}
-		return qpow(x, MIP::mod() - 2);
+		return qpow(x, MIP::mod() - 2, MIP(1, false));
 	}
 	template<i64 P, bool _64> ModIntPr<P, _64> operator/(const ModIntPr<P, _64> x, const ModIntPr<P, _64> y) {
 		return x * inv(y);

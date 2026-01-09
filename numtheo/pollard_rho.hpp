@@ -32,7 +32,7 @@ namespace numtheo {
 			if (std::gcd(a, x) != 1) {
 				return false;
 			}
-			MI v = qpow(MI(a, false), u);
+			MI v = qpow(MI(a, false), u, MI(1, false));
 			if (v.value() == 1) {
 				continue;
 			}
