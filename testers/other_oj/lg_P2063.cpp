@@ -1,5 +1,3 @@
-// tested by lg_P2063
-
 #include <iostream>
 
 #include "../../basics.hpp"
