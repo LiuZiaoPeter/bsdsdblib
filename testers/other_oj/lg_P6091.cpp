@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../basics.hpp"
-#include "../numtheo/prim_root.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/prim_root.hpp"
 
 int main() {
 	std::ios::sync_with_stdio(false);

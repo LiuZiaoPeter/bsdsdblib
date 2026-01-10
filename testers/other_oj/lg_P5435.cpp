@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "../basics.hpp"
-#include "../numtheo/modint.hpp"
-#include "../numtheo/o1gcd.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/modint.hpp"
+#include "../../numtheo/o1gcd.hpp"
 
 using MIP = numtheo::ModIntPr32<998244353>;
 

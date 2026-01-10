@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../basics.hpp"
-#include "../numtheo/pollard_rho.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/pollard_rho.hpp"
 
 u64 ans(u64 x) {
 	if (numtheo::miller_rabin(x)) {

@@ -1,5 +1,3 @@
-// tested by qoj_p5
-
 #pragma once
 
 #include <cmath>

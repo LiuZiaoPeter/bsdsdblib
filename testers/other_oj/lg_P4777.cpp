@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../basics.hpp"
-#include "../numtheo/excrt.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/excrt.hpp"
 
 int main() {
 	std::ios::sync_with_stdio(false);

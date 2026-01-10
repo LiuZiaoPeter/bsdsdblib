@@ -1,5 +1,3 @@
-// tested by : lg_P3846, lg_P4195, lg_U648171, lg_U648236
-
 #pragma once
 
 #include <cmath>

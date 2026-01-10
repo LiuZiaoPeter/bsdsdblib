@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../basics.hpp"
-#include "../numtheo/modint.hpp"
-#include "../numtheo/fast_dis_ln.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/modint.hpp"
+#include "../../numtheo/fast_dis_ln.hpp"
 
 using MIP = numtheo::ModIntPr32<-1>;
 

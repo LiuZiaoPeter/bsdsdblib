@@ -1,5 +1,5 @@
-#include "../numtheo/modint.hpp"
-#include "../numtheo/mul_inv.hpp"
+#include "../../numtheo/modint.hpp"
+#include "../../numtheo/mul_inv.hpp"
 
 using mip = numtheo::ModIntPr32<998244353>;
 

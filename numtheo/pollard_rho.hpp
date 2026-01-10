@@ -1,5 +1,3 @@
-// tested by lg_P4718
-
 #pragma once
 
 #include <algorithm>
@@ -14,6 +12,9 @@ namespace numtheo {
 	template<i128::liftable_unsigned T> bool miller_rabin(T x) {
 		using MI = ModInt<modint_inner + 3, std::is_same_v<T, u64>>; // mod : x
 		MI::set_mod(x);
+		if (x == 1) {
+			return false;
+		}
 		if (!(x & 1)) {
 			return x == 2;
 		}

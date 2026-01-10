@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "../basics.hpp"
-#include "../numtheo/modint.hpp"
-#include "../numtheo/dis_log.hpp"
+#include "../../basics.hpp"
+#include "../../numtheo/modint.hpp"
+#include "../../numtheo/dis_log.hpp"
 
 using MIP = numtheo::ModIntPr32<-1>;
 

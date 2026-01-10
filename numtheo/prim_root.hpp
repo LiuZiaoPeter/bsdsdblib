@@ -1,5 +1,3 @@
-// tested by lg_P6091
-
 #pragma once
 
 #include <numeric>
