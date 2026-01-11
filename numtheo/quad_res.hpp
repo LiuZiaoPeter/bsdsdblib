@@ -21,8 +21,7 @@ namespace numtheo {
 		using MIP = ModIntPr<P, _64>;
 		if (MIP::mod() == 2) {
 			return x;
-		}.github/workflows
-
+		}
 		if (x == 0) {
 			return 0;
 		}

@@ -6,9 +6,10 @@
 #include <vector>
 
 #include "../basics.hpp"
-#include "../numtheo/cont_frac.hpp"
-#include "../numtheo/pollard_rho.hpp"
-#include "../numtheo/quad_res.hpp"
+#include "cont_frac.hpp"
+#include "gauss_int.hpp"
+#include "pollard_rho.hpp"
+#include "quad_res.hpp"
 
 namespace numtheo {
 	template<i128::liftable_unsigned T> std::pair<T, T> sqdecomp2_m4e1(T p) {
@@ -25,7 +26,10 @@ namespace numtheo {
 		return {std::abs(static_cast<i128::make_signed_t<T>>(static_cast<suT>(b * c) - static_cast<suT>(p * a))), b};
 	}
 	template<i128::liftable_unsigned T> std::optional<std::pair<T, T>> sqdecomp2_one(T x) {
-		using cplx = std::complex<i128::make_signed_t<T>>;
+		using cplx = GaussInt<i128::make_signed_t<T>>;
+		if (x == 0) {
+			return std::make_pair(0, 0);
+		}
 		auto pf = numtheo::prime_factors(x);
 		cplx ret(1, 0);
 		for (auto [p, a] : pf) {
@@ -42,10 +46,13 @@ namespace numtheo {
 				ret *= qpow(dec_c, a);
 			}
 		}
-		return std::make_pair(std::abs(ret.real()), std::abs(ret.imag()));
+		return std::make_pair(std::abs(ret.re), std::abs(ret.im));
 	}
 	template<i128::liftable_unsigned T> std::vector<std::pair<T, T>> sqdecomp2_all(T x) {
-		using cplx = std::complex<i128::make_signed_t<T>>;
+		using cplx = GaussInt<i128::make_signed_t<T>>;
+		if (x == 0) {
+			return {std::make_pair(0, 0)};
+		}
 		auto pf = numtheo::prime_factors(x);
 		std::vector<cplx> r1 = {cplx(1, 0)};
 		for (auto [p, a] : pf) {
@@ -60,7 +67,7 @@ namespace numtheo {
 				}
 				T tmp = qpow(p, a >> 1);
 				for (auto &z : r1) {
-					z *= tmp;
+					z *= static_cast<cplx>(tmp);
 				}
 			} else {
 				std::pair<T, T> dec = sqdecomp2_m4e1(p);
@@ -74,7 +81,7 @@ namespace numtheo {
 				r2.reserve(r1.size() * (a + 1));
 				for (auto z : r1) {
 					for (u32 i = 0; i <= a; ++i) {
-						r2.emplace_back(z * pws[i] * std::conj(pws[a - i]));
+						r2.emplace_back(z * pws[i] * conj(pws[a - i]));
 					}
 				}
 				r1 = r2;
@@ -82,8 +89,8 @@ namespace numtheo {
 		}
 		std::vector<std::pair<T, T>> ret;
 		for (auto z : r1) {
-			ret.emplace_back(std::abs(z.real()), std::abs(z.imag()));
-			ret.emplace_back(std::abs(z.imag()), std::abs(z.real()));
+			ret.emplace_back(std::abs(z.re), std::abs(z.im));
+			ret.emplace_back(std::abs(z.im), std::abs(z.re));
 		}
 		std::sort(ret.begin(), ret.end());
 		ret.erase(std::unique(ret.begin(), ret.end()), ret.end());

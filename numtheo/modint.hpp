@@ -6,7 +6,7 @@ namespace numtheo {
 	constexpr i64 modint_inner = -2000000000;
 	template<class Derived, i64 P, bool _64 = false> class ModIntBase {
 		/*
-		lt 0 for dynamic, lt -2e9 for internal use
+		lt 0 for dynamic, lt -1e9 for internal use
 		occupied P shown below:
 		1	dis_log.hpp > ord
 		2	excrt.hpp > excrt(T, T, T, T)
@@ -23,6 +23,7 @@ namespace numtheo {
 		inline static val_t dyn_mod = 0;
 	public:
 		static void set_mod(val_t p) {
+			static_assert(P < 0);
 			dyn_mod = p;
 		}
 		static val_t mod() {

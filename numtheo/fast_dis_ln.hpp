@@ -19,9 +19,7 @@ namespace numtheo {
 		using MIP = ModIntPr<P, _64>;
 		using aux = fast_dis_ln_hpp::aux<P, _64>;
 		u32 sqrtP = static_cast<u32>(std::sqrt(MIP::mod())) + 2;
-		if (mpf.size() <= sqrtP) {
-			euler_sieve(sqrtP);
-		}
+		euler_sieve(sqrtP);
 		std::vector<MIP> prs;
 		for (u32 i = 2; i <= sqrtP; ++i) {
 			if (mpf[i] == i) {

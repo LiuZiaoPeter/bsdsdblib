@@ -8,7 +8,7 @@ int main() {
 	std::cin.tie(nullptr), std::cout.tie(nullptr);
 	u32 n, q;
 	std::cin >> n >> q;
-	numtheo::euler_sieve(n);
+	numtheo::enum_prime(n);
 	while (q--) {
 		u32 x;
 		std::cin >> x;

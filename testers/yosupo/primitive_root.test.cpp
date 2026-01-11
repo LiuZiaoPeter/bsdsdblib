@@ -1,9 +1,10 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/primality_test"
+#define PROBLEM "https://judge.yosupo.jp/problem/primitive_root"
 
 #include <iostream>
+#include <optional>
 
 #include "../../basics.hpp"
-#include "../../numtheo/pollard_rho.hpp"
+#include "../../numtheo/prim_root.hpp"
 
 int main() {
 	std::ios::sync_with_stdio(false);
@@ -13,11 +14,7 @@ int main() {
 	while (T--) {
 		u64 n;
 		std::cin >> n;
-		if (numtheo::miller_rabin(n) == true) {
-			std::cout << "Yes\n";
-		} else {
-			std::cout << "No\n";
-		}
+		std::cout << numtheo::min_prim_root(n).value() << '\n';
 	}
 	return 0;
 }

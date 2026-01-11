@@ -13,9 +13,7 @@ namespace numtheo {
 	std::vector<std::vector<u32>> gcd_table;
 	void O1gcd_preproc(u32 N) {
 		u32 sqrtN = static_cast<u32>(std::sqrt(N)) + 1;
-		if (mpf.size() <= N) {
-			euler_sieve(N);
-		}
+		euler_sieve(N);
 		gcd_decomp.clear(), gcd_decomp.resize(N + 1);
 		for (u32 i = 1; i <= N; ++i) {
 			if (mpf[i] == i) {

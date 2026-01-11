@@ -17,7 +17,7 @@ using i64 = int64_t;
 using __u128 = __uint128_t;
 using __i128 = __int128_t;
 
-std::ostream &operator<<(std::ostream &out, __uint128_t x) {
+std::ostream &operator<<(std::ostream &out, __u128 x) {
 	if (x == 0) {
 		out << "0";
 		return out;
@@ -31,12 +31,12 @@ std::ostream &operator<<(std::ostream &out, __uint128_t x) {
 	out << _o;
 	return out;
 }
-std::ostream &operator<<(std::ostream &out, __int128_t x) {
+std::ostream &operator<<(std::ostream &out, __i128 x) {
 	if (x < 0) {
 		out << "-";
 		x *= -1;
 	}
-	out << static_cast<__uint128_t>(x);
+	out << static_cast<__u128>(x);
 	return out;
 }
 

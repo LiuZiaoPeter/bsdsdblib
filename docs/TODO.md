@@ -1,3 +1,3 @@
 - fps
-- prime enumurator
 - 改善 mul_inv.hpp 文件内封装（暂时无解决方法）
+- c++17 支持？

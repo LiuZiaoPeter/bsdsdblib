@@ -6,6 +6,7 @@
 #include "numtheo/euler_sieve.hpp"
 #include "numtheo/excrt.hpp"
 #include "numtheo/fast_dis_ln.hpp"
+#include "numtheo/gauss_int.hpp"
 #include "numtheo/modint.hpp"
 #include "numtheo/mul_inv.hpp"
 #include "numtheo/o1gcd.hpp"
