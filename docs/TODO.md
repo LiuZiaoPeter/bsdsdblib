@@ -1,6 +1,5 @@
 - fps
 - 改善 mul_inv.hpp 文件内封装（暂时无解决方法）
-- c++17 支持
 - farey 模幂
 - 完善手写哈希表，支持自定义 hash 函数
 - fastio
