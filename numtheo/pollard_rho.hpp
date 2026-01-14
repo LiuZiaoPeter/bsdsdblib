@@ -58,7 +58,7 @@ namespace numtheo {
 			return 2;
 		}
 		MI c;
-		std::conditional_t<std::is_same_v<T, u64>, std::mt19937_64, std::mt19937> rndc(std::random_device()());
+		std::conditional_t<std::is_same_v<T, u64>, std::mt19937_64, std::mt19937> rndc((std::random_device())());
 		while (true) {
 			c = MI(rndc() % (x - 1) + 1, false);
 			auto f = [c](MI _x)->MI {

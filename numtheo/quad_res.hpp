@@ -28,7 +28,7 @@ namespace numtheo {
 		if (legendre(x) == -1) {
 			return std::nullopt;
 		}
-		std::mt19937_64 rndu(std::random_device{}());
+		std::mt19937_64 rndu((std::random_device())());
 		MIP u, t;
 		do {
 			u = rndu();
