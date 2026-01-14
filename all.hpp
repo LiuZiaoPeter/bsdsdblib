@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 
 #include "basics.hpp"
+#include "ds/hash_table.hpp"
 #include "numtheo/cont_frac.hpp"
 #include "numtheo/dis_log.hpp"
 #include "numtheo/euler_sieve.hpp"
 #include "numtheo/excrt.hpp"
-#include "numtheo/fast_dis_ln.hpp"
+#include "numtheo/farey_tech.hpp"
 #include "numtheo/gauss_int.hpp"
 #include "numtheo/modint.hpp"
-#include "numtheo/mul_inv.hpp"
 #include "numtheo/o1gcd.hpp"
 #include "numtheo/pollard_rho.hpp"
 #include "numtheo/prim_root.hpp"

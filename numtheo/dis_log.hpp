@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../basics.hpp"
+#include "../ds/hash_table.hpp"
 #include "modint.hpp"
 #include "prod_funcs.hpp"
 
@@ -18,13 +19,13 @@ namespace numtheo {
 		using mul_t = MIP::mul_t;
 		u32 B = static_cast<u32>(std::sqrt(MIP::mod())) + 2;
 		MIP a_to_y = 1;
-		std::unordered_map<val_t, val_t> bay2y;
+		ds::hash_table<val_t, val_t> bay2y;
 		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			bay2y[(b * a_to_y).value()] = y;
 		}
 		MIP a_to_B = a_to_y, a_to_B_to_x = a_to_B;
 		for (u32 x = 1; x <= B; ++x, a_to_B_to_x *= a_to_B) {
-			if (bay2y.find(a_to_B_to_x.value()) != bay2y.end()) {
+			if (bay2y.exists(a_to_B_to_x.value()) == true) {
 				return static_cast<mul_t>(B) * x - bay2y[a_to_B_to_x.value()];
 			}
 		}
@@ -38,9 +39,9 @@ namespace numtheo {
 		u32 B = static_cast<u32>(std::sqrt(MIP::mod() / b.size())) + 2;
 		u32 xlim = static_cast<u32>(MIP::mod() / B) + 3;
 		MIP a_to_B = qpow(a, B, MIP(1, false)), a_to_B_to_x = a_to_B;
-		std::unordered_map<val_t, val_t> aBx2x;
+		ds::hash_table<val_t, val_t> aBx2x;
 		for (u32 x = 1; x <= xlim; ++x, a_to_B_to_x *= a_to_B) {
-			if (aBx2x.find(a_to_B_to_x.value()) == aBx2x.end()) {
+			if (aBx2x.exists(a_to_B_to_x.value()) == false) {
 				aBx2x[a_to_B_to_x.value()] = x;
 			}
 		}
@@ -49,7 +50,7 @@ namespace numtheo {
 		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			for (u32 i = 0; i < ret.size(); ++i) {
 				val_t bayv = (b[i] * a_to_y).value();
-				if (aBx2x.find(bayv) == aBx2x.end()) {
+				if (aBx2x.exists(bayv) == false) {
 					continue;
 				}
 				val_t cura = static_cast<val_t>(static_cast<mul_t>(aBx2x[bayv]) * B - y);
@@ -73,7 +74,7 @@ namespace numtheo {
 		using mul_t = MI::mul_t;
 		u32 B = static_cast<u32>(std::sqrt(MI::mod())) + 1;
 		MI a_to_B = qpow(a, B, MI(1, false)), a_to_Bx = a_to_B;
-		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
+		ds::hash_table<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (u32 x = 1; x <= B; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
 				aBx2x[a_to_Bx.value()].first = x;
@@ -85,7 +86,7 @@ namespace numtheo {
 		std::optional<val_t> ret = std::nullopt;
 		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			val_t curv = (b * a_to_y).value();
-			if (aBx2x.find(curv) == aBx2x.end()) {
+			if (aBx2x.exists(curv) == false) {
 				continue;
 			}
 			for (val_t x : {aBx2x[curv].first, aBx2x[curv].second}) {
@@ -113,7 +114,7 @@ namespace numtheo {
 		u32 B = static_cast<u32>(std::sqrt(phi(MI::mod()) / b.size())) + 2;
 		u32 xlim = static_cast<u32>(MI::mod() / B) + 3;
 		MI a_to_B = qpow(a, B, MI(1, false)), a_to_Bx = a_to_B;
-		std::unordered_map<val_t, std::pair<val_t, val_t>> aBx2x;
+		ds::hash_table<val_t, std::pair<val_t, val_t>> aBx2x;
 		for (u32 x = 1; x <= xlim; ++x, a_to_Bx *= a_to_B) {
 			if (aBx2x[a_to_Bx.value()].first == 0) {
 				aBx2x[a_to_Bx.value()].first = x;
@@ -126,7 +127,7 @@ namespace numtheo {
 		for (u32 y = 0; y < B; ++y, a_to_y *= a) {
 			for (u32 i = 0; i < ret.size(); ++i) {
 				val_t curv = (b[i] * a_to_y).value();
-				if (aBx2x.find(curv) == aBx2x.end()) {
+				if (aBx2x.exists(curv) == false) {
 					continue;
 				}
 				for (val_t x : {aBx2x[curv].first, aBx2x[curv].second}) {

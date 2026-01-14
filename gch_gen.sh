@@ -1,16 +1,16 @@
 #!/bin/bash
 
 shopt -s expand_aliases
-alias compile_cmd='g++ -Ofast -std=c++20 -x c++-header 2>/dev/null'
+alias compile_cmd='g++ -Ofast -std=c++20 -x c++-header'
 
 compile() {
-	echo -n compiling $1 ""
+	echo compiling $1
 	compile_cmd $1
 	if [ $? -ne 0 ]; then 
-		echo error
-		exit
+		echo $1 error
+		exit 1
 	else
-		echo done
+		echo $1 done
 	fi
 }
 

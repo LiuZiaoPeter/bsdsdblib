@@ -3,7 +3,7 @@
 
 #include "../../basics.hpp"
 #include "../../numtheo/modint.hpp"
-#include "../../numtheo/fast_dis_ln.hpp"
+#include "../../numtheo/farey_tech.hpp"
 
 using MIP = numtheo::ModIntPr32<-1>;
 
@@ -15,7 +15,7 @@ int main() {
 	MIP::set_mod(p);
 	MIP g;
 	std::cin >> g;
-	numtheo::dis_ln_preproc(g);
+	numtheo::fast_ln_preproc(g);
 	u32 q;
 	std::cin >> q;
 	while (q--) {
