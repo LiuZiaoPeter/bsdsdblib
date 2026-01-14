@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../basics.hpp"
+#include "../general/fast_pow.hpp"
 #include "cont_frac.hpp"
 #include "gauss_int.hpp"
 #include "pollard_rho.hpp"

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../basics.hpp"
+#include "../general/fast_pow.hpp"
 #include "modint.hpp"
 
 namespace numtheo {

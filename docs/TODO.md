@@ -1,6 +1,5 @@
 - fps
-- 改善 mul_inv.hpp 文件内封装（暂时无解决方法）
-- farey 模幂
+- 改善 farey_tech.hpp 文件内封装（暂时无解决方法）
 - 完善手写哈希表，支持自定义 hash 函数
 - fastio
 - 支持多测清空

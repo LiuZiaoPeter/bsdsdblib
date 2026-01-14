@@ -8,6 +8,7 @@
 
 #include "../basics.hpp"
 #include "../ds/hash_table.hpp"
+#include "../general/fast_pow.hpp"
 #include "modint.hpp"
 #include "prod_funcs.hpp"
 

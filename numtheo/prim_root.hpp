@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../basics.hpp"
+#include "../general/fast_pow.hpp"
 #include "pollard_rho.hpp"
 #include "prod_funcs.hpp"
 

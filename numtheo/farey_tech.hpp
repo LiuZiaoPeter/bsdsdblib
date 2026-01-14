@@ -1,5 +1,6 @@
 #pragma once
 
+#include <bit>
 #include <cmath>
 #include <stdexcept>
 #include <type_traits>
@@ -7,6 +8,7 @@
 #include <vector>
 
 #include "../basics.hpp"
+#include "../general/fast_pow.hpp"
 #include "dis_log.hpp"
 #include "euler_sieve.hpp"
 #include "modint.hpp"
@@ -24,7 +26,7 @@ namespace farey_tech_hpp {
 			}
 			enable = true;
 			cbrt_log = std::bit_width(static_cast<u32>(std::cbrt(MIP::mod()) + 1));
-			cbrt = 1 << cbrt_log, cbrt2 = 1 << (cbrt_log << 1);
+			cbrt = 1u << cbrt_log, cbrt2 = 1u << (cbrt_log << 1);
 			far.assign(cbrt2 + 1, std::make_pair(0, 0));
 			for (u32 p = 0; p <= cbrt; ++p) {
 				for (u32 q = (p == 1 ? 1 : p + 1); q <= cbrt; ++q) {
@@ -62,7 +64,7 @@ namespace farey_tech_hpp {
 		}
 		inline static std::vector<numtheo::ModIntPr<P, _64>> inv_v;
 		inline static std::vector<val_t> ln_table;
-		inline static numtheo::ModIntPr<P, _64> g;
+		inline static O1pow<numtheo::ModIntPr<P, _64>> pw;
 	};
 }
 
@@ -121,7 +123,6 @@ namespace numtheo {
 		using MIP = ModIntPr<P, _64>;
 		using aux = farey_tech_hpp::aux<P, _64>;
 		aux::preproc();
-		aux::g = g;
 		// ln for <=sqrt primes
 		aux::ln_table.resize(aux::cbrt2 + 1);
 		u32 sqrtP = static_cast<u32>(std::sqrt(MIP::mod())) + 2;
@@ -163,6 +164,19 @@ namespace numtheo {
 		using aux = farey_tech_hpp::aux<P, _64>;
 		auto [q, t] = aux::get(x.value());
 		return static_cast<MIP::val_t>((static_cast<u64>(t > 0 ? aux::ln_table[t] : ((MIP::mod() - 1) >> 1) + aux::ln_table[-t]) + (MIP::mod() - 1) - aux::ln_table[q]) % (MIP::mod() - 1));
+	}
+	#pragma endregion
+	#pragma region // pow
+	template<i64 P, bool _64> void modpow_preproc(ModIntPr<P, _64> g) {
+		using MIP = ModIntPr<P, _64>;
+		using aux = farey_tech_hpp::aux<P, _64>;
+		fast_ln_preproc(g);
+		aux::pw = O1pow<numtheo::ModIntPr<P, _64>>(g, MIP::mod() - 2);
+	}
+	template<i64 P, bool _64, i128::unsigned_integral T> ModIntPr<P, _64> fast_mod_pow(ModIntPr<P, _64> x, T y) {
+		using MIP = ModIntPr<P, _64>;
+		using aux = farey_tech_hpp::aux<P, _64>;
+		return aux::pw(static_cast<MIP::mul_t>(fast_dis_ln(x)) * y % (MIP::mod() - 1));
 	}
 	#pragma endregion
 }

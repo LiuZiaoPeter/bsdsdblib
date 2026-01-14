@@ -2,6 +2,7 @@
 
 #include "basics.hpp"
 #include "ds/hash_table.hpp"
+#include "general/fast_pow.hpp"
 #include "numtheo/cont_frac.hpp"
 #include "numtheo/dis_log.hpp"
 #include "numtheo/euler_sieve.hpp"
