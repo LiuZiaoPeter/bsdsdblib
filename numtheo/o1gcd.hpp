@@ -43,6 +43,8 @@ namespace numtheo {
 		}
 	}
 	u32 O1gcd(u32 x, u32 y) {
+		assure(x < gcd_decomp.size(), "x={} out of gcd preproc range", x);
+		assure(y < gcd_decomp.size(), "y={} out of gcd preproc range", y);
 		u32 ret = 1;
 		for (u32 i : gcd_decomp[x]) {
 			u32 g;

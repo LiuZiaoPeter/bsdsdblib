@@ -39,6 +39,7 @@ public:
 		}
 	}
 	template<i128::unsigned_integral U> T operator()(U x) {
+		assure(x < (1u << (B_log << 1)), "exponent {} out of range {} (B_log={})", x, (1u << (B_log << 1)) - 1, B_log);
 		return table_bs[x & ((1u << B_log) - 1)] * table_gs[x >> B_log];
 	}
 };

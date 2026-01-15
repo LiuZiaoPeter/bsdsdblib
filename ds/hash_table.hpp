@@ -61,6 +61,7 @@ namespace ds {
 			if (occupied[ind] == false) {
 				occupied[ind] = true;
 				++_size;
+				warn(_size < N, "hash table full");
 			}
 			key[ind] = k;
 			return val[ind];

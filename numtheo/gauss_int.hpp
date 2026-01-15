@@ -39,6 +39,7 @@ namespace numtheo {
 		return static_cast<i128::up_t<T>>(x.re) * x.re + static_cast<i128::up_t<T>>(x.im) * x.im;
 	}
 	template<i128::signed_integral T> GaussInt<T> operator/(const GaussInt<T> x, const GaussInt<T> y) {
+		assure(norm(y) != 0, "divide gaussint 0");
 		std::complex<double> retc = static_cast<std::complex<double>>(x) / static_cast<std::complex<double>>(y);
 		return GaussInt<T>(static_cast<T>(std::round(retc.real())), static_cast<T>(std::round(retc.imag())));
 	}

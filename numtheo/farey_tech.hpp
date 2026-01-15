@@ -60,6 +60,7 @@ namespace farey_tech_hpp {
 				q = suc[cur].second;
 				t = static_cast<i32>(static_cast<i64>(x) * q - static_cast<i64>(MIP::mod()) * suc[cur].first);
 			}
+			assure(static_cast<u32>(std::abs(t)) <= cbrt2, "get failed, t={} not in range={}", t, cbrt2);
 			return std::make_pair(q, t);
 		}
 		inline static std::vector<numtheo::ModIntPr<P, _64>> inv_v;
@@ -98,9 +99,7 @@ namespace numtheo {
 	template<i64 P, bool _64> ModIntPr<P, _64> inv(ModIntPr<P, _64> x) {
 		using MIP = ModIntPr<P, _64>;
 		using aux = farey_tech_hpp::aux<P, _64>;
-		if (x.value() == 0) {
-			throw std::invalid_argument(__func_str__ + " : getting inv(0)");
-		}
+		assure(x.falue() != 0, "x=0");
 		if (x.value() < aux::inv_v.size()) {
 			return aux::inv_v[x.value()];
 		}

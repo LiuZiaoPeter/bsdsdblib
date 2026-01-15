@@ -34,11 +34,9 @@ namespace numtheo {
 		return std::make_pair((k1m * MI(p1, false) + MI(a1, false)).value(), l);
 	}
 	template<i128::liftable_unsigned T> std::optional<std::pair<T, T>> excrt(std::vector<T> a, std::vector<T> p) {
-		if (a.size() != p.size() || a.empty() || p.empty()) {
-			throw std::invalid_argument(
-				__func_str__ + " : argument illegal"
-			);
-		}
+		assure(a.size() == p.size(), "size(a)={} while size(p)={}", a.size(), p.size());
+		assure(!a.empty(), "a is empty");
+		assure(!p.empty(), "p is empty");
 		for (auto ita = a.begin(), itp = p.begin(); ita != prev(a.end()); ++ita, ++itp) {
 			auto res = excrt(*ita, *itp, *next(ita), *next(itp));
 			if (res.has_value() == false) {

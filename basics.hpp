@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <concepts>
+#include <format>
 #include <string>
 #include <iostream>
 #include <type_traits>
@@ -93,3 +95,19 @@ namespace i128 {
 }
 
 #define __func_str__ static_cast<std::string>(__func__)
+#ifdef DEBUG
+#define warn(cond, str, ...) do { \
+	if (!(cond)) { \
+		std::cerr << std::format("[WARNING/{}] " str, __func__ __VA_OPT__(,) __VA_ARGS__) << std::endl; \
+	} \
+} while (0)
+#define assure(cond, str, ...) do { \
+	if (!(cond)) { \
+		std::cerr << std::format("[ERROR/{}] " str, __func__ __VA_OPT__(,) __VA_ARGS__) << std::endl; \
+		abort(); \
+	} \
+} while (0)
+#else
+#define warn(...) ;
+#define assure(...) ;
+#endif

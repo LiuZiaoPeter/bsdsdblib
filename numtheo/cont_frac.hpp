@@ -7,6 +7,7 @@
 
 namespace numtheo {
 	template<i128::unsigned_integral T> std::vector<T> cont_frac(T a, T b) {
+		assure(b != 0, "dominator=0");
 		if (a == 0) {
 			return {0};
 		}
@@ -19,6 +20,7 @@ namespace numtheo {
 		return res;
 	}
 	template<i128::unsigned_integral T> std::vector<std::pair<T, T>> convergent(T a, T b) {
+		assure(b != 0, "dominator=0");
 		std::vector<T> cf = cont_frac(a, b);
 		std::vector<std::pair<T, T>> ret(cf.size());
 		T p1 = 1, q1 = 0, p2 = 0, q2 = 1;
