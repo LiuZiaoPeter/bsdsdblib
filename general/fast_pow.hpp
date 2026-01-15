@@ -2,7 +2,6 @@
 
 #include <bit>
 #include <cmath>
-#include <stdexcept>
 #include <vector>
 
 #include "../basics.hpp"
