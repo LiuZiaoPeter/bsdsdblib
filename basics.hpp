@@ -42,23 +42,24 @@ std::ostream &operator<<(std::ostream &out, __i128 x) {
 
 namespace i128 {	
 	// concepts
-	template<class T> concept unsigned_integral = std::unsigned_integral<T> || std::is_same_v<T, __uint128_t>;
-	template<class T> concept signed_integral = std::signed_integral<T> || std::is_same_v<T, __int128_t>;
+	template<class T> concept unsigned_integral = std::unsigned_integral<T> || std::is_same_v<T, __u128>;
+	template<class T> concept signed_integral = std::signed_integral<T> || std::is_same_v<T, __i128>;
+	template<class T> concept integral = signed_integral<T> || unsigned_integral<T>;
 	template<class T> concept liftable_unsigned = std::unsigned_integral<T>;
 	template<class T> concept liftable_signed = std::signed_integral<T>;
 	// type traits
 	template<class T> struct make_unsigned {
 		using type = std::make_unsigned_t<T>;
 	};
-	template<> struct make_unsigned<__int128_t> {
-		using type = __uint128_t;
+	template<> struct make_unsigned<__i128> {
+		using type = __u128;
 	};
 	template<class T> using make_unsigned_t = make_unsigned<T>::type;
 	template<class T> struct make_signed {
 		using type = std::make_signed_t<T>;
 	};
-	template<> struct make_signed<__uint128_t> {
-		using type = __int128_t;
+	template<> struct make_signed<__u128> {
+		using type = __i128;
 	};
 	template<class T> using make_signed_t = make_signed<T>::type;
 	template<class T> struct up {
